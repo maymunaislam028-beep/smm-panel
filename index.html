@@ -29,34 +29,34 @@
     <!-- Left Column: New Order Form -->
     <div class="lg:col-span-1 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
       <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-        <i class="fa-solid fa-cart-shopping text-indigo-500"></i> নতুন অর্ডার করুন
+        <i class="fa-solid fa-cart-shopping text-indigo-500"></i> New Order
       </h2>
       
       <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-4">
         <div>
-          <label class="block text-sm font-medium mb-2">সার্ভিস নির্বাচন করুন</label>
+          <label class="block text-sm font-medium mb-2">Service</label>
           <select id="serviceSelect" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
-            <option value="">সার্ভিস লোড হচ্ছে...</option>
+            <option value="">Loading services...</option>
           </select>
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-2">লিংক (Link)</label>
+          <label class="block text-sm font-medium mb-2">Link</label>
           <input type="url" id="orderLink" placeholder="https://..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-2">পরিমাণ (Quantity)</label>
+          <label class="block text-sm font-medium mb-2">Quantity</label>
           <input type="number" id="orderQty" placeholder="1000" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-2">ইমেইল (Email)</label>
+          <label class="block text-sm font-medium mb-2">Email</label>
           <input type="email" id="orderEmail" placeholder="your@email.com" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
         </div>
 
         <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-lg transition duration-200">
-          অর্ডার সাবমিট করুন
+          Submit Order
         </button>
       </form>
     </div>
@@ -64,7 +64,7 @@
     <!-- Right Column: Orders History Table -->
     <div class="lg:col-span-2 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
       <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-        <i class="fa-solid fa-history text-indigo-500"></i> অর্ডার হিস্ট্রি
+        <i class="fa-solid fa-history text-indigo-500"></i> Order History
       </h2>
       
       <div class="overflow-x-auto">
@@ -81,7 +81,7 @@
           </thead>
           <tbody id="ordersTable" class="text-sm divide-y divide-slate-800">
             <tr>
-              <td colspan="6" class="py-6 text-center text-slate-500">হিস্ট্রি লোড হচ্ছে...</td>
+              <td colspan="6" class="py-6 text-center text-slate-500">Loading history...</td>
             </tr>
           </tbody>
         </table>
@@ -101,12 +101,12 @@
         const services = await res.json();
         const serviceSelect = document.getElementById("serviceSelect");
         if (serviceSelect) {
-            serviceSelect.innerHTML = '<option value="">সার্ভিস নির্বাচন করুন</option>';
+            serviceSelect.innerHTML = '<option value="">Select Service</option>';
             services.forEach(s => {
               const opt = document.createElement("option");
               opt.value = s.name;
               opt.dataset.rate = s.rate;
-              opt.textContent = `${s.name} - $${s.rate}`;
+              opt.textContent = `${s.name} - $${s.rate} per 1000`;
               serviceSelect.appendChild(opt);
             });
         }
@@ -124,7 +124,7 @@
         if (tableBody) {
             tableBody.innerHTML = '';
             if(orders.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">কোনো অর্ডার পাওয়া যায়নি</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">No orders found</td></tr>`;
                 return;
             }
             orders.forEach(o => {
@@ -147,11 +147,16 @@
     async function handleOrderSubmit(e) {
       e.preventDefault();
       
-      const service = document.getElementById("serviceSelect").value;
+      const serviceSelect = document.getElementById("serviceSelect");
+      const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+      const service = serviceSelect.value;
+      const rate = parseFloat(selectedOption.dataset.rate) || 0;
+      
       const link = document.getElementById("orderLink").value;
-      const qty = document.getElementById("orderQty").value;
+      const qty = parseInt(document.getElementById("orderQty").value) || 0;
       const email = document.getElementById("orderEmail").value;
-      const cost = (qty * 0.01).toFixed(2);
+      
+      const cost = ((qty / 1000) * rate).toFixed(2);
 
       const orderData = { service, link, quantity: qty, email, charge: cost };
 
@@ -163,12 +168,12 @@
           body: JSON.stringify(orderData)
         });
 
-        alert("অর্ডার সফলভাবে সাবমিট হয়েছে!");
+        alert("Order submitted successfully!");
         document.getElementById("orderForm").reset();
         setTimeout(loadOrders, 2000);
       } catch (err) {
         console.error("Order submission error:", err);
-        alert("অর্ডার সাবমিট করতে সমস্যা হয়েছে।");
+        alert("Failed to submit order.");
       }
     }
 
