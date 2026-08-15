@@ -1,223 +1,218 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JH Media Growth - SMM Panel</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JH Media Growth - SMM Panel</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen">
 
-  <!-- Navbar -->
-  <nav class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="bg-indigo-600 text-white p-2 rounded-lg">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
-        <span class="font-bold text-xl tracking-wider">JH Media Growth</span>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Main Container -->
-  <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-    
-    <!-- Left Column: New Order Form -->
-    <div class="lg:col-span-1 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
-      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-        <i class="fa-solid fa-cart-shopping text-indigo-500"></i> New Order
-      </h2>
-      
-      <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium mb-2">Service Package</label>
-          <select id="serviceSelect" onchange="onServiceChange()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
-            <option value="">Select Package</option>
+    <!-- Auth Container (Login / Signup Form) -->
+    <div id="auth-container" class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-md shadow-xl">
+            <h2 id="auth-title" class="text-2xl font-bold text-center mb-6 text-indigo-400">Login</h2>
             
-            <!-- YouTube Shorts -->
-            <optgroup label="YouTube Shorts Views">
-              <option value="YouTube Shorts - 5K Views" data-price="250" data-qty="5000">YouTube Shorts - 5K (250 Tk)</option>
-              <option value="YouTube Shorts - 10K Views" data-price="500" data-qty="10000">YouTube Shorts - 10K (500 Tk)</option>
-              <option value="YouTube Shorts - 1M Views" data-price="1150" data-qty="1000000">YouTube Shorts - 1 Million (1150 Tk)</option>
-            </optgroup>
+            <div id="auth-message" class="mb-4 text-sm text-center text-red-400"></div>
 
-            <!-- YouTube Long Video -->
-            <optgroup label="YouTube Long Video">
-              <option value="YouTube Long - 1K Views" data-price="350" data-qty="1000">YouTube Long - 1K (350 Tk)</option>
-              <option value="YouTube Long - 10K Views" data-price="750" data-qty="10000">YouTube Long - 10K (750 Tk)</option>
-              <option value="YouTube Long - 50K Views" data-price="1350" data-qty="50000">YouTube Long - 50K (1350 Tk)</option>
-              <option value="YouTube Long - 1000K Views" data-price="2500" data-qty="1000000">YouTube Long - 1000K (2500 Tk)</option>
-            </optgroup>
+            <form id="auth-form" onsubmit="handleAuth(event)">
+                <div id="name-field" class="mb-4 hidden">
+                    <label class="block text-sm mb-2">Your Name</label>
+                    <input type="text" id="name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="Enter your name">
+                </div>
 
-            <!-- YouTube Subscribers -->
-            <optgroup label="YouTube Subscribers">
-              <option value="YouTube Subscribers - 1000 Subs" data-price="50" data-qty="1000">YouTube Subs - 1000 (50 Tk)</option>
-              <option value="YouTube Subscribers - 5000 Subs" data-price="250" data-qty="5000">YouTube Subs - 5000 (250 Tk)</option>
-              <option value="YouTube Subscribers - 10000 Subs" data-price="550" data-qty="10000">YouTube Subs - 10000 (550 Tk)</option>
-            </optgroup>
+                <div class="mb-4">
+                    <label class="block text-sm mb-2">Email Address</label>
+                    <input type="email" id="email" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="example@email.com">
+                </div>
 
-            <!-- Facebook Video & Followers -->
-            <optgroup label="Facebook Services">
-              <option value="FB Video - 10K Views" data-price="150" data-qty="10000">FB Video - 10K Views (150 Tk)</option>
-              <option value="FB Video - 50K Views" data-price="450" data-qty="50000">FB Video - 50K Views (450 Tk)</option>
-              <option value="FB Video - 1M Views" data-price="2450" data-qty="1000000">FB Video - 1 Million Views (2450 Tk)</option>
-              <option value="FB Followers - 1000" data-price="25" data-qty="1000">FB Followers - 1000 (25 Tk)</option>
-              <option value="FB Followers - 5000" data-price="250" data-qty="5000">FB Followers - 5000 (250 Tk)</option>
-              <option value="FB Followers - 10000" data-price="550" data-qty="10000">FB Followers - 10000 (550 Tk)</option>
-            </optgroup>
+                <div class="mb-6">
+                    <label class="block text-sm mb-2">Password</label>
+                    <input type="password" id="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="********">
+                </div>
 
-            <!-- Instagram Services -->
-            <optgroup label="Instagram Services">
-              <option value="IG Followers - 1000" data-price="30" data-qty="1000">IG Followers - 1000 (30 Tk)</option>
-              <option value="IG Followers - 5000" data-price="140" data-qty="5000">IG Followers - 5000 (140 Tk)</option>
-              <option value="IG Views - 1000" data-price="25" data-qty="1000">IG Views - 1000 (25 Tk)</option>
-              <option value="IG Views - 10000" data-price="300" data-qty="10000">IG Views - 10000 (300 Tk)</option>
-            </optgroup>
+                <button type="submit" id="auth-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition duration-200">Login</button>
+            </form>
 
-            <!-- TikTok Services -->
-            <optgroup label="TikTok Services">
-              <option value="TikTok Followers - 1000" data-price="20" data-qty="1000">TikTok Followers - 1000 (20 Tk)</option>
-              <option value="TikTok Followers - 5000" data-price="100" data-qty="5000">TikTok Followers - 5000 (100 Tk)</option>
-              <option value="TikTok Followers - 10000" data-price="200" data-qty="10000">TikTok Followers - 10000 (200 Tk)</option>
-              <option value="TikTok Views - 5K" data-price="40" data-qty="5000">TikTok Views - 5K (40 Tk)</option>
-              <option value="TikTok Views - 10000" data-price="80" data-qty="10000">TikTok Views - 10000 (80 Tk)</option>
-            </optgroup>
-
-          </select>
+            <div class="text-center mt-4">
+                <p id="switch-text" class="text-sm text-slate-400">Don't have an account? <button onclick="toggleAuthMode()" class="text-indigo-400 hover:underline">Sign Up</button></p>
+            </div>
         </div>
-
-        <div>
-          <label class="block text-sm font-medium mb-2">Link</label>
-          <input type="url" id="orderLink" placeholder="https://..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium mb-2">Quantity (Auto-filled)</label>
-          <input type="text" id="orderQty" readonly class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-sm text-slate-400 cursor-not-allowed focus:outline-none" placeholder="Select a package first" required>
-        </div>
-
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-lg transition duration-200">
-          Submit Order
-        </button>
-      </form>
     </div>
 
-    <!-- Right Column: Orders History Table -->
-    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
-      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-        <i class="fa-solid fa-history text-indigo-500"></i> Order History
-      </h2>
-      
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="border-b border-slate-800 text-slate-400 text-sm">
-              <th class="py-3 px-3">Order ID</th>
-              <th class="py-3 px-3">Service</th>
-              <th class="py-3 px-3">Link</th>
-              <th class="py-3 px-3">Qty</th>
-              <th class="py-3 px-3">Cost</th>
-              <th class="py-3 px-3">Status</th>
-            </tr>
-          </thead>
-          <tbody id="ordersTable" class="text-sm divide-y divide-slate-800">
-            <tr>
-              <td colspan="6" class="py-6 text-center text-slate-500">Loading history...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="hidden p-4 max-w-4xl mx-auto">
+        <div class="flex justify-between items-center mb-6 bg-slate-900 p-4 rounded-xl border border-slate-800">
+            <div>
+                <h1 class="text-xl font-bold text-indigo-400">JH Media Growth</h1>
+                <p class="text-xs text-slate-400" id="user-info-display">Logged in as: user@email.com</p>
+            </div>
+            <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-xs px-4 py-2 rounded-lg font-semibold transition">Logout</button>
+        </div>
+
+        <!-- New Order Section -->
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-8 shadow-xl">
+            <h2 class="text-lg font-bold mb-4 text-indigo-400">New Order</h2>
+            <form id="order-form" onsubmit="submitOrder(event)">
+                <div class="mb-4">
+                    <label class="block text-sm mb-2">Service Package</label>
+                    <select id="service-select" onchange="updateServiceDetails()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
+                        <option value="">Select Package</option>
+                        <option value="YouTube Shorts - 5K Views" data-qty="5000" data-charge="250">YouTube Shorts - 5K Views - 250 Tk</option>
+                        <option value="YouTube Shorts - 10K Views" data-qty="10000" data-charge="500">YouTube Shorts - 10K Views - 500 Tk</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm mb-2">Link</label>
+                    <input type="url" id="order-link" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="https://...">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm mb-2">Quantity (Auto-filled)</label>
+                    <input type="text" id="order-quantity" readonly class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-slate-400 cursor-not-allowed">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition">Submit Order</button>
+            </form>
+        </div>
+
+        <!-- Order History Section -->
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl overflow-x-auto">
+            <h2 class="text-lg font-bold mb-4 text-indigo-400">Order History</h2>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-slate-800 text-slate-400 text-sm">
+                        <th class="p-3">Order ID</th>
+                        <th class="p-3">Service</th>
+                        <th class="p-3">Link</th>
+                        <th class="p-3">Qty</th>
+                        <th class="p-3">Cost</th>
+                        <th class="p-3">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table-body" class="text-sm">
+                    <!-- Dynamic Orders -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
-  </div>
+    <!-- JavaScript Logic -->
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6ljlYlh1fnw8WrAgT7wGJUkiqk1e6tmPHHjo69xPghBnRnHbnFEX8AvpK4yA-0hVXkQ/exec";
+        let isSignupMode = false;
 
-  <!-- JavaScript Integration -->
-  <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6ljlYlh1fnw8WrAgT7wGJUkiqk1e6tmPHHjo69xPghBnRnHbnFEX8AvpK4yA-0hVXkQ/exec";
-
-    // Auto fill quantity when service is selected
-    function onServiceChange() {
-      const serviceSelect = document.getElementById("serviceSelect");
-      const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
-      const qtyInput = document.getElementById("orderQty");
-      
-      if (selectedOption && selectedOption.dataset.qty) {
-        qtyInput.value = selectedOption.dataset.qty;
-      } else {
-        qtyInput.value = "";
-      }
-    }
-
-    // Load Orders from API
-    async function loadOrders() {
-      try {
-        const res = await fetch(SCRIPT_URL + "?action=getOrders");
-        const orders = await res.json();
-        const tableBody = document.getElementById("ordersTable");
-        if (tableBody) {
-            tableBody.innerHTML = '';
-            if(orders.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">No orders found</td></tr>`;
-                return;
+        window.onload = function() {
+            const savedUser = localStorage.getItem("jh_user_email");
+            if (savedUser) {
+                showDashboard(savedUser);
             }
-            orders.forEach(o => {
-              tableBody.innerHTML += `<tr class="hover:bg-slate-800/50 border-b border-slate-800/50">
-                <td class="py-3 px-3">${o.orderId || o.id || ''}</td>
-                <td class="py-3 px-3">${o.service || ''}</td>
-                <td class="py-3 px-3 truncate max-w-xs">${o.link || ''}</td>
-                <td class="py-3 px-3">${o.quantity || o.qty || ''}</td>
-                <td class="py-3 px-3">${o.charge || o.cost || '0'} Tk</td>
-                <td class="py-3 px-3"><span class="px-2 py-1 bg-amber-500/10 text-amber-400 rounded text-xs">${o.status || 'Pending'}</span></td>
-              </tr>`;
+        }
+
+        function toggleAuthMode() {
+            isSignupMode = !isSignupMode;
+            document.getElementById("auth-title").innerText = isSignupMode ? "Sign Up" : "Login";
+            document.getElementById("auth-btn").innerText = isSignupMode ? "Sign Up" : "Login";
+            document.getElementById("name-field").classList.toggle("hidden", !isSignupMode);
+            document.getElementById("switch-text").innerHTML = isSignupMode ? 
+                'Already have an account? <button onclick="toggleAuthMode()" class="text-indigo-400 hover:underline">Login</button>' : 
+                'Don\'t have an account? <button onclick="toggleAuthMode()" class="text-indigo-400 hover:underline">Sign Up</button>';
+            document.getElementById("auth-message").innerText = "";
+        }
+
+        function handleAuth(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const name = document.getElementById("name").value;
+            const action = isSignupMode ? "signup" : "login";
+
+            document.getElementById("auth-btn").innerText = "Please wait...";
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: action, email: email, password: password, name: name })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "success") {
+                    localStorage.setItem("jh_user_email", data.email);
+                    localStorage.setItem("jh_user_name", data.name || "User");
+                    showDashboard(data.email);
+                } else {
+                    document.getElementById("auth-message").innerText = data.message;
+                    document.getElementById("auth-btn").innerText = isSignupMode ? "Sign Up" : "Login";
+                }
+            })
+            .catch(err => {
+                document.getElementById("auth-message").innerText = "Something went wrong. Please try again.";
+                document.getElementById("auth-btn").innerText = isSignupMode ? "Sign Up" : "Login";
             });
         }
-      } catch (err) {
-        console.error("Error loading orders:", err);
-      }
-    }
 
-    // Handle Order Submit
-    async function handleOrderSubmit(e) {
-      e.preventDefault();
-      
-      const serviceSelect = document.getElementById("serviceSelect");
-      const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
-      const service = serviceSelect.value;
-      const price = selectedOption.dataset.price || '0';
-      
-      const link = document.getElementById("orderLink").value;
-      const qty = document.getElementById("orderQty").value;
-      
-      const cost = price + " Tk";
+        function showDashboard(email) {
+            document.getElementById("auth-container").classList.add("hidden");
+            document.getElementById("dashboard").classList.remove("hidden");
+            document.getElementById("user-info-display").innerText = "Logged in as: " + email;
+            loadOrders(email);
+        }
 
-      const orderData = { service, link, quantity: qty, charge: cost };
+        function logout() {
+            localStorage.removeItem("jh_user_email");
+            localStorage.removeItem("jh_user_name");
+            location.reload();
+        }
 
-      try {
-        const response = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderData)
-        });
+        function updateServiceDetails() {
+            const select = document.getElementById("service-select");
+            const selectedOption = select.options[select.selectedIndex];
+            const qty = selectedOption.getAttribute("data-qty") || "";
+            document.getElementById("order-quantity").value = qty;
+        }
 
-        alert("Order submitted successfully!");
-        document.getElementById("orderForm").reset();
-        document.getElementById("orderQty").value = "";
-        setTimeout(loadOrders, 2000);
-      } catch (err) {
-        console.error("Order submission error:", err);
-        alert("Failed to submit order.");
-      }
-    }
+        function submitOrder(event) {
+            event.preventDefault();
+            const service = document.getElementById("service-select").value;
+            const link = document.getElementById("order-link").value;
+            const quantity = document.getElementById("order-quantity").value;
+            const selectOption = document.getElementById("service-select").selectedOptions[0];
+            const charge = selectOption.getAttribute("data-charge") + " Tk";
+            const email = localStorage.getItem("jh_user_email");
 
-    // Page load initialization
-    window.onload = () => {
-      loadOrders();
-    };
-  </script>
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ service: service, link: link, quantity: quantity, charge: charge, email: email })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === "success") {
+                    alert("Order submitted successfully!");
+                    document.getElementById("order-form").reset();
+                    document.getElementById("order-quantity").value = "";
+                    loadOrders(email);
+                }
+            });
+        }
+
+        function loadOrders(email) {
+            fetch(`${SCRIPT_URL}?action=getOrders&email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.getElementById("orders-table-body");
+                tbody.innerHTML = "";
+                data.forEach(order => {
+                    tbody.innerHTML += `
+                        <tr class="border-b border-slate-800/50">
+                            <td class="p-3 font-medium">${order.orderId}</td>
+                            <td class="p-3">${order.service}</td>
+                            <td class="p-3 truncate max-w-xs"><a href="${order.link}" target="_blank" class="text-indigo-400 hover:underline">${order.link}</a></td>
+                            <td class="p-3">${order.quantity}</td>
+                            <td class="p-3">${order.charge}</td>
+                            <td class="p-3"><span class="px-2 py-1 text-xs rounded-full bg-amber-500/20 text-amber-400">${order.status}</span></td>
+                        </tr>
+                    `;
+                });
+            });
+        }
+    </script>
 </body>
 </html>
