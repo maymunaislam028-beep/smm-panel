@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,34 +6,33 @@
     <title>JH Media Growth - SMM Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen">
+<body class="bg-slate-900 text-slate-100 min-h-screen">
 
-    <!-- Auth Container -->
+    <!-- Auth Container (Login / Signup) -->
     <div id="auth-container" class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-md shadow-xl">
+        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl w-full max-w-md shadow-2xl">
             <h2 id="auth-title" class="text-2xl font-bold text-center mb-6 text-indigo-400">Login</h2>
             <div id="auth-message" class="mb-4 text-sm text-center text-red-400"></div>
             
             <form id="auth-form" onsubmit="handleAuth(event)">
                 <div id="name-field" class="mb-4 hidden">
-                    <label class="block text-sm mb-2">Your Name</label>
-                    <input type="text" id="name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="Enter your name">
+                    <label class="block text-sm mb-2 text-slate-300">Your Name</label>
+                    <input type="text" id="name" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="Enter your name">
                 </div>
 
                 <div class="mb-4">
-                    <label class="block text-sm mb-2">Email Address</label>
-                    <input type="email" id="email" required list="email-suggestions" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="example@gmail.com">
+                    <label class="block text-sm mb-2 text-slate-300">Email Address</label>
+                    <input type="email" id="email" required list="email-suggestions" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="example@gmail.com">
                     <datalist id="email-suggestions">
                         <option value="your-email1@gmail.com">
                         <option value="your-email2@gmail.com">
-                        <option value="your-email3@gmail.com">
                     </datalist>
                 </div>
 
                 <div class="mb-6">
-                    <label class="block text-sm mb-2">Password</label>
+                    <label class="block text-sm mb-2 text-slate-300">Password</label>
                     <div class="relative">
-                        <input type="password" id="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="********">
+                        <input type="password" id="password" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="********">
                         <button type="button" onclick="togglePassword()" class="absolute right-3 top-3.5 text-xs text-indigo-400 hover:underline font-medium">Show</button>
                     </div>
                 </div>
@@ -49,7 +48,8 @@
 
     <!-- Dashboard -->
     <div id="dashboard" class="hidden p-4 max-w-4xl mx-auto">
-        <div class="flex justify-between items-center mb-6 bg-slate-900 p-4 rounded-xl border border-slate-800">
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center mb-6 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
             <div>
                 <h1 class="text-xl font-bold text-indigo-400">JH Media Growth</h1>
                 <p class="text-xs text-slate-400" id="user-info-display"></p>
@@ -57,14 +57,15 @@
             <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-xs px-4 py-2 rounded-lg font-semibold transition">Logout</button>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-8 shadow-xl">
+        <!-- New Order Form -->
+        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl mb-8 shadow-xl">
             <h2 class="text-lg font-bold mb-4 text-indigo-400">New Order</h2>
             <form id="order-form" onsubmit="submitOrder(event)">
                 
-                <!-- Service Selection with ALL services -->
+                <!-- Service Selection -->
                 <div class="mb-4">
-                    <label class="block text-sm mb-2">Service Package</label>
-                    <select id="service-select" onchange="updateServiceDetails()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
+                    <label class="block text-sm mb-2 text-slate-300">Service Package</label>
+                    <select id="service-select" required onchange="updateServiceDetails()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
                         <option value="">-- Choose a Service --</option>
                         
                         <optgroup label="YouTube Shorts Views">
@@ -116,24 +117,37 @@
                 </div>
 
                 <!-- Payment Setup (Bkash & Nagad) -->
-                <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
-                    <p class="text-sm font-semibold mb-2">Select Payment Method:</p>
+                <div class="bg-slate-900 p-4 rounded-lg mb-4 border border-slate-700">
+                    <p class="text-sm font-semibold mb-2 text-slate-300">Select Payment Method:</p>
                     <div class="grid grid-cols-2 gap-2 mb-3">
-                        <label class="flex items-center gap-2 bg-slate-700 p-3 rounded text-xs border border-slate-600 cursor-pointer">
+                        <label class="flex items-center gap-2 bg-slate-800 p-3 rounded text-xs border border-slate-700 cursor-pointer">
                             <input type="radio" name="payment-method" value="Bkash" checked class="w-4 h-4"> 
                             <span>Bkash: 01XXXXXXXXX</span>
                         </label>
-                        <label class="flex items-center gap-2 bg-slate-700 p-3 rounded text-xs border border-slate-600 cursor-pointer">
+                        <label class="flex items-center gap-2 bg-slate-800 p-3 rounded text-xs border border-slate-700 cursor-pointer">
                             <input type="radio" name="payment-method" value="Nagad" class="w-4 h-4"> 
                             <span>Nagad: 01XXXXXXXXX</span>
                         </label>
                     </div>
-                    <p class="text-xs">Amount: <span id="display-charge" class="text-indigo-400 font-bold">0</span> Tk</p>
+                    <p class="text-xs text-slate-300">Amount: <span id="display-charge" class="text-indigo-400 font-bold text-sm">0</span> Tk</p>
                 </div>
 
+                <!-- Sender Number & TrxID -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm mb-2 text-slate-300">Your Sender Number</label>
+                        <input type="text" id="sender-number" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="01XXXXXXXXX">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2 text-slate-300">Transaction ID (TrxID)</label>
+                        <input type="text" id="trx-id" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="TrxID">
+                    </div>
+                </div>
+
+                <!-- Link Field -->
                 <div class="mb-4">
-                    <label class="block text-sm mb-2">Link</label>
-                    <input type="url" id="order-link" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="https://...">
+                    <label class="block text-sm mb-2 text-slate-300">Link</label>
+                    <input type="url" id="order-link" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="https://...">
                 </div>
 
                 <input type="hidden" id="order-quantity">
@@ -141,15 +155,16 @@
             </form>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl overflow-x-auto">
+        <!-- Order History Table -->
+        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-xl overflow-x-auto">
             <h2 class="text-lg font-bold mb-4 text-indigo-400">Order History</h2>
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="border-b border-slate-800 text-slate-400 text-sm">
+                    <tr class="border-b border-slate-700 text-slate-400 text-sm">
                         <th class="p-3">ID</th>
                         <th class="p-3">Service</th>
                         <th class="p-3">Cost</th>
-                        <th class="p-3">Pay</th>
+                        <th class="p-3">Pay Info</th>
                         <th class="p-3">Status</th>
                     </tr>
                 </thead>
@@ -162,6 +177,7 @@
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6ljlYlh1fnw8WrAgT7wGJUkiqk1e6tmPHHjo69xPghBnRnHbnFEX8AvpK4yA-0hVXkQ/exec";
         let isSignupMode = false;
 
+        // Session Management via localStorage
         window.onload = () => {
             const savedEmail = localStorage.getItem("jh_user_email");
             if (savedEmail) showDashboard(savedEmail);
@@ -207,6 +223,9 @@
                 } else { 
                     document.getElementById("auth-message").innerText = data.message; 
                 }
+            })
+            .catch(err => {
+                document.getElementById("auth-message").innerText = "Connection error. Please try again.";
             });
         }
 
@@ -233,6 +252,8 @@
             e.preventDefault();
             const select = document.getElementById("service-select");
             const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            const senderNumber = document.getElementById("sender-number").value;
+            const trxId = document.getElementById("trx-id").value;
             const email = localStorage.getItem("jh_user_email");
 
             const data = { 
@@ -240,7 +261,7 @@
                 link: document.getElementById("order-link").value,
                 quantity: document.getElementById("order-quantity").value,
                 charge: select.selectedOptions[0].getAttribute("data-charge") + " Tk",
-                payment: paymentMethod,
+                payment: `${paymentMethod} (${senderNumber}) - Trx: ${trxId}`,
                 email: email
             };
             
@@ -253,8 +274,11 @@
                     document.getElementById("order-form").reset();
                     document.getElementById("display-charge").innerText = "0";
                 } else {
-                    alert("Error: " + response.message);
+                    alert("Error: " + (response.message || "Failed to submit order"));
                 }
+            })
+            .catch(err => {
+                alert("Network error while submitting order.");
             });
         }
 
@@ -268,15 +292,19 @@
                     return;
                 }
                 tbody.innerHTML = data.map(o => `
-                    <tr class="border-b border-slate-800">
+                    <tr class="border-b border-slate-700">
                         <td class="p-3">${o.orderId}</td>
                         <td class="p-3">${o.service}</td>
                         <td class="p-3">${o.charge}</td>
-                        <td class="p-3">${o.payment || 'Bkash'}</td>
-                        <td class="p-3 text-amber-400">${o.status}</td>
+                        <td class="p-3">${o.payment || 'N/A'}</td>
+                        <td class="p-3 text-amber-400 font-medium">${o.status}</td>
                     </tr>`).join('');
+            })
+            .catch(err => {
+                console.error("Failed to load orders");
             });
         }
     </script>
 </body>
 </html>
+
