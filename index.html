@@ -9,99 +9,69 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
+<body class="bg-slate-950 text-slate-100 font-sans">
 
   <!-- Navbar -->
-  <nav class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+  <nav class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="bg-indigo-600 text-white p-2 rounded-lg font-bold">
+        <div class="bg-indigo-600 text-white p-2 rounded-lg">
           <i class="fa-solid fa-bolt"></i>
         </div>
-        <span class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">SMM Global</span>
-      </div>
-      <div class="flex items-center space-x-4">
-        <div class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-sm font-semibold flex items-center space-x-2">
-          <span class="text-slate-400">Balance:</span>
-          <span class="text-emerald-400">$100.00</span>
-        </div>
+        <span class="font-bold text-xl tracking-wider">JH Media Growth</span>
       </div>
     </div>
   </nav>
 
+  <!-- Main Container -->
   <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
     
     <!-- Left Column: New Order Form -->
-    <div class="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl h-fit">
-      <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-        <i class="fa-solid fa-cart-plus text-indigo-400"></i> New Order
+    <div class="lg:col-span-1 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
+      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+        <i class="fa-solid fa-cart-shopping text-indigo-500"></i> নতুন অর্ডার করুন
       </h2>
-
-      <form id="orderForm" class="space-y-5">
-        
-        <!-- Client Email -->
+      
+      <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Your Email</label>
-          <input type="email" id="clientEmail" required placeholder="client@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-indigo-500 text-sm">
-        </div>
-
-        <!-- Service Category Selection -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Category</label>
-          <select id="categorySelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-indigo-500 text-sm">
-            <option value="YouTube">YouTube Services</option>
+          <label class="block text-sm font-medium mb-2">সার্ভিস নির্বাচন করুন</label>
+          <select id="serviceSelect" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
+            <option value="">সার্ভিস লোড হচ্ছে...</option>
           </select>
         </div>
 
-        <!-- Service Selection -->
         <div>
-          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Service</label>
-          <select id="serviceSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-indigo-500 text-sm">
-            <!-- Services dynamically loaded -->
-          </select>
+          <label class="block text-sm font-medium mb-2">লিংক (Link)</label>
+          <input type="url" id="orderLink" placeholder="https://..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
         </div>
 
-        <!-- Target Link -->
         <div>
-          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Target Link</label>
-          <input type="url" id="targetLink" required placeholder="https://youtube.com/watch?v=..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-indigo-500 text-sm">
+          <label class="block text-sm font-medium mb-2">পরিমাণ (Quantity)</label>
+          <input type="number" id="orderQty" placeholder="1000" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
         </div>
 
-        <!-- Quantity -->
         <div>
-          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Quantity</label>
-          <input type="number" id="quantity" value="1000" min="100" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-indigo-500 text-sm">
+          <label class="block text-sm font-medium mb-2">ইমেইল (Email)</label>
+          <input type="email" id="orderEmail" placeholder="your@email.com" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
         </div>
 
-        <!-- Total Charge Display -->
-        <div class="bg-slate-950/60 border border-slate-800/80 p-4 rounded-xl flex justify-between items-center">
-          <span class="text-sm text-slate-400 font-medium">Total Price</span>
-          <span id="totalPrice" class="text-xl font-bold text-indigo-400">$0.00</span>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition duration-200 shadow-lg shadow-indigo-600/30 text-sm flex justify-center items-center gap-2">
-          <span>Submit Order</span>
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-lg transition duration-200">
+          অর্ডার সাবমিট করুন
         </button>
       </form>
     </div>
 
-    <!-- Right Column: Order History -->
-    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-xl font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-list-check text-indigo-400"></i> Order History
-        </h2>
-        <button onclick="loadOrders()" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
-          <i class="fa-solid fa-rotate-right"></i> Refresh
-        </button>
-      </div>
-
+    <!-- Right Column: Orders History Table -->
+    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
+      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+        <i class="fa-solid fa-history text-indigo-500"></i> অর্ডার হিস্ট্রি
+      </h2>
+      
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
-            <tr class="border-b border-slate-800 text-xs text-slate-400 uppercase">
-              <th class="py-3 px-3">ID</th>
+            <tr class="border-b border-slate-800 text-slate-400 text-sm">
+              <th class="py-3 px-3">Order ID</th>
               <th class="py-3 px-3">Service</th>
               <th class="py-3 px-3">Link</th>
               <th class="py-3 px-3">Qty</th>
@@ -109,9 +79,9 @@
               <th class="py-3 px-3">Status</th>
             </tr>
           </thead>
-          <tbody id="ordersTable" class="text-sm divide-y divide-slate-800 text-slate-300">
+          <tbody id="ordersTable" class="text-sm divide-y divide-slate-800">
             <tr>
-              <td colspan="6" class="py-6 text-center text-slate-500">Loading orders...</td>
+              <td colspan="6" class="py-6 text-center text-slate-500">হিস্ট্রি লোড হচ্ছে...</td>
             </tr>
           </tbody>
         </table>
@@ -122,126 +92,91 @@
 
   <!-- JavaScript Integration -->
   <script>
-    
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwG2CDH_3mowOmk2qwFKqEiMdrSbadob42ejkhAbAZkwQnWbj1Alv0Hxt47du5cy3RoBQ/exec";
-
-let currentRate = 2.50;
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwz8X6MdPxfBWHM2FQqWYeUsmk0rf_YkOkFeYE9ihWCl1AMvL7Qbm9Bm9oSlG-5uBd0kQ/exec";
 
     // Load Services from API
     async function loadServices() {
       try {
-        const res = await fetch(`${SCRIPT_URL}?action=getServices`);
+        const res = await fetch(SCRIPT_URL + "?action=getServices");
         const services = await res.json();
-        
-        const serviceSelect = document.getElementById('serviceSelect');
-        serviceSelect.innerHTML = '';
-        
-        services.forEach(s => {
-          const opt = document.createElement('option');
-          opt.value = s.name;
-          opt.dataset.rate = s.rate;
-          opt.textContent = `${s.name} - $${s.rate}/1k`;
-          serviceSelect.appendChild(opt);
-        });
-
-        if (services.length > 0) {
-          currentRate = services[0].rate;
-          calculatePrice();
-        }
-      } catch (e) {
-        console.error("Error loading services:", e);
-      }
-    }
-
-    // Calculate Price dynamically
-    function calculatePrice() {
-      const qty = parseInt(document.getElementById('quantity').value) || 0;
-      const total = (qty / 1000) * currentRate;
-      document.getElementById('totalPrice').textContent = `$${total.toFixed(2)}`;
-    }
-
-    document.getElementById('serviceSelect').addEventListener('change', (e) => {
-      const selectedOption = e.target.options[e.target.selectedIndex];
-      currentRate = parseFloat(selectedOption.dataset.rate) || 0;
-      calculatePrice();
-    });
-
-    document.getElementById('quantity').addEventListener('input', calculatePrice);
-
-    // Submit Order to API
-    document.getElementById('orderForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Submitting...`;
-
-      const payload = {
-        clientEmail: document.getElementById('clientEmail').value,
-        serviceName: document.getElementById('serviceSelect').value,
-        targetLink: document.getElementById('targetLink').value,
-        quantity: parseInt(document.getElementById('quantity').value),
-        totalPrice: document.getElementById('totalPrice').textContent
-      };
-
-      try {
-        const res = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          body: JSON.stringify(payload)
-        });
-        
-        const result = await res.json();
-        if (result.result === 'success') {
-          alert(`Order Placed Successfully! Order ID: ${result.orderId}`);
-          document.getElementById('targetLink').value = '';
-          loadOrders();
-        } else {
-          alert("Failed to place order.");
+        const serviceSelect = document.getElementById("serviceSelect");
+        if (serviceSelect) {
+            serviceSelect.innerHTML = '<option value="">সার্ভিস নির্বাচন করুন</option>';
+            services.forEach(s => {
+              const opt = document.createElement("option");
+              opt.value = s.name;
+              opt.dataset.rate = s.rate;
+              opt.textContent = `${s.name} - $${s.rate}`;
+              serviceSelect.appendChild(opt);
+            });
         }
       } catch (err) {
-        alert("Error connecting to server.");
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `Submit Order`;
-      }
-    });
-
-    // Fetch Orders History
-    async function loadOrders() {
-      const table = document.getElementById('ordersTable');
-      try {
-        const res = await fetch(`${SCRIPT_URL}?action=getOrders`);
-        const orders = await res.json();
-
-        if (orders.length === 0) {
-          table.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">No orders found</td></tr>`;
-          return;
-        }
-
-        table.innerHTML = orders.map(o => `
-          <tr class="hover:bg-slate-800/40">
-            <td class="py-3 px-3 font-mono text-xs text-indigo-400">${o.orderId}</td>
-            <td class="py-3 px-3">${o.service}</td>
-            <td class="py-3 px-3"><a href="${o.link}" target="_blank" class="text-cyan-400 hover:underline truncate inline-block max-w-[120px]">Link</a></td>
-            <td class="py-3 px-3">${o.quantity}</td>
-            <td class="py-3 px-3 font-semibold text-emerald-400">${o.price}</td>
-            <td class="py-3 px-3">
-              <span class="px-2.5 py-1 text-xs rounded-full font-medium ${
-                o.status === 'Completed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-                o.status === 'In Progress' ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' :
-                'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-              }">${o.status}</span>
-            </td>
-          </tr>
-        `).reverse().join('');
-      } catch (e) {
-        table.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-red-400">Failed to load history</td></tr>`;
+        console.error("Error loading services:", err);
       }
     }
 
-    // Initialize
-    loadServices();
-    loadOrders();
+    // Load Orders from API
+    async function loadOrders() {
+      try {
+        const res = await fetch(SCRIPT_URL + "?action=getOrders");
+        const orders = await res.json();
+        const tableBody = document.getElementById("ordersTable");
+        if (tableBody) {
+            tableBody.innerHTML = '';
+            if(orders.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">কোনো অর্ডার পাওয়া যায়নি</td></tr>`;
+                return;
+            }
+            orders.forEach(o => {
+              tableBody.innerHTML += `<tr class="hover:bg-slate-800/50">
+                <td class="py-3 px-3">${o.id || ''}</td>
+                <td class="py-3 px-3">${o.service || ''}</td>
+                <td class="py-3 px-3 truncate max-w-xs">${o.link || ''}</td>
+                <td class="py-3 px-3">${o.qty || ''}</td>
+                <td class="py-3 px-3">${o.cost || ''}</td>
+                <td class="py-3 px-3"><span class="px-2 py-1 bg-amber-500/10 text-amber-400 rounded text-xs">${o.status || 'Pending'}</span></td>
+              </tr>`;
+            });
+        }
+      } catch (err) {
+        console.error("Error loading orders:", err);
+      }
+    }
+
+    // Handle Order Submit
+    async function handleOrderSubmit(e) {
+      e.preventDefault();
+      
+      const service = document.getElementById("serviceSelect").value;
+      const link = document.getElementById("orderLink").value;
+      const qty = document.getElementById("orderQty").value;
+      const email = document.getElementById("orderEmail").value;
+      const cost = (qty * 0.01).toFixed(2); // আনুমানিক হিসাব
+
+      const orderData = { service, link, quantity: qty, email, charge: cost };
+
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData)
+        });
+
+        alert("অর্ডার সফলভাবে সাবমিট হয়েছে!");
+        document.getElementById("orderForm").reset();
+        setTimeout(loadOrders, 2000); // ২ সেকেন্ড পর লিস্ট আপডেট করবে
+      } catch (err) {
+        console.error("Order submission error:", err);
+        alert("অর্ডার সাবমিট করতে সমস্যা হয়েছে।");
+      }
+    }
+
+    // Page load initialization
+    window.onload = () => {
+      loadServices();
+      loadOrders();
+    };
   </script>
 </body>
 </html>
