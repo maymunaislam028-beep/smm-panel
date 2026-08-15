@@ -4,149 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JH Media Growth - SMM Panel</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
 
-    <!-- Auth Container (Login / Signup Form) -->
+    <!-- Auth Container -->
     <div id="auth-container" class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-md shadow-xl">
             <h2 id="auth-title" class="text-2xl font-bold text-center mb-6 text-indigo-400">Login</h2>
-            
             <div id="auth-message" class="mb-4 text-sm text-center text-red-400"></div>
-
             <form id="auth-form" onsubmit="handleAuth(event)">
                 <div id="name-field" class="mb-4 hidden">
                     <label class="block text-sm mb-2">Your Name</label>
-                    <input type="text" id="name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="Enter your name">
+                    <input type="text" id="name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
                 </div>
-
                 <div class="mb-4">
                     <label class="block text-sm mb-2">Email Address</label>
-                    <input type="email" id="email" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="example@email.com">
+                    <input type="email" id="email" required list="email-suggestions" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="example@gmail.com">
+                    <datalist id="email-suggestions">
+                        <option value="your-email1@gmail.com">
+                        <option value="your-email2@gmail.com">
+                        <option value="your-email3@gmail.com">
+                    </datalist>
                 </div>
-
                 <div class="mb-6">
                     <label class="block text-sm mb-2">Password</label>
-                    <input type="password" id="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="********">
+                    <div class="relative">
+                        <input type="password" id="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
+                        <button type="button" onclick="togglePassword()" class="absolute right-3 top-3.5 text-xs text-indigo-400 hover:underline">Show</button>
+                    </div>
                 </div>
-
-                <button type="submit" id="auth-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition duration-200">Login</button>
+                <button type="submit" id="auth-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition">Login</button>
             </form>
-
-            <div class="text-center mt-4">
-                <p id="switch-text" class="text-sm text-slate-400">Don't have an account? <button onclick="toggleAuthMode()" class="text-indigo-400 hover:underline">Sign Up</button></p>
-            </div>
+            <p class="text-center mt-4 text-sm text-slate-400" id="switch-text">Don't have an account? <button type="button" onclick="toggleAuthMode()" class="text-indigo-400 hover:underline">Sign Up</button></p>
         </div>
     </div>
 
-    <!-- Main Dashboard -->
+    <!-- Dashboard -->
     <div id="dashboard" class="hidden p-4 max-w-4xl mx-auto">
         <div class="flex justify-between items-center mb-6 bg-slate-900 p-4 rounded-xl border border-slate-800">
             <div>
                 <h1 class="text-xl font-bold text-indigo-400">JH Media Growth</h1>
-                <p class="text-xs text-slate-400" id="user-info-display">Logged in as: user@email.com</p>
+                <p class="text-xs text-slate-400" id="user-info-display"></p>
             </div>
-            <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-xs px-4 py-2 rounded-lg font-semibold transition">Logout</button>
+            <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-xs px-4 py-2 rounded-lg font-semibold">Logout</button>
         </div>
 
-        <!-- New Order Section -->
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-8 shadow-xl">
             <h2 class="text-lg font-bold mb-4 text-indigo-400">New Order</h2>
             <form id="order-form" onsubmit="submitOrder(event)">
                 <div class="mb-4">
                     <label class="block text-sm mb-2">Service Package</label>
-                    <select id="service-select" onchange="updateServiceDetails()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
+                    <select id="service-select" onchange="updateServiceDetails()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white">
                         <option value="">Select Package</option>
                         <option value="YouTube Shorts - 5K Views" data-qty="5000" data-charge="250">YouTube Shorts - 5K Views - 250 Tk</option>
                         <option value="YouTube Shorts - 10K Views" data-qty="10000" data-charge="500">YouTube Shorts - 10K Views - 500 Tk</option>
                     </select>
                 </div>
+                
+                <!-- Payment Setup -->
+                <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
+                    <p class="text-sm font-semibold mb-2">Select Payment Method:</p>
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <label class="bg-slate-700 p-2 rounded text-xs text-center border border-slate-600 cursor-pointer">
+                            <input type="radio" name="payment-method" value="Bkash" checked> Bkash: 01XXXXXXXXX
+                        </label>
+                        <label class="bg-slate-700 p-2 rounded text-xs text-center border border-slate-600 cursor-pointer">
+                            <input type="radio" name="payment-method" value="Nagad"> Nagad: 01XXXXXXXXX
+                        </label>
+                    </div>
+                    <p class="text-xs">Amount: <span id="display-charge" class="text-indigo-400 font-bold">0</span> Tk</p>
+                </div>
+
                 <div class="mb-4">
                     <label class="block text-sm mb-2">Link</label>
-                    <input type="url" id="order-link" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="https://...">
+                    <input type="url" id="order-link" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white" placeholder="https://...">
                 </div>
-                <div class="mb-4">
-                    <label class="block text-sm mb-2">Quantity (Auto-filled)</label>
-                    <input type="text" id="order-quantity" readonly class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-slate-400 cursor-not-allowed">
-                </div>
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition">Submit Order</button>
+                <input type="hidden" id="order-quantity">
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg">Confirm Order</button>
             </form>
         </div>
 
-        <!-- Order History Section -->
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl overflow-x-auto">
             <h2 class="text-lg font-bold mb-4 text-indigo-400">Order History</h2>
             <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="border-b border-slate-800 text-slate-400 text-sm">
-                        <th class="p-3">Order ID</th>
-                        <th class="p-3">Service</th>
-                        <th class="p-3">Link</th>
-                        <th class="p-3">Qty</th>
-                        <th class="p-3">Cost</th>
-                        <th class="p-3">Status</th>
-                    </tr>
-                </thead>
-                <tbody id="orders-table-body" class="text-sm">
-                    <!-- Dynamic Orders -->
-                </tbody>
+                <thead><tr class="border-b border-slate-800 text-slate-400 text-sm"><th class="p-3">ID</th><th class="p-3">Service</th><th class="p-3">Cost</th><th class="p-3">Pay</th><th class="p-3">Status</th></tr></thead>
+                <tbody id="orders-table-body" class="text-sm"></tbody>
             </table>
         </div>
     </div>
 
-    <!-- JavaScript Logic -->
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6ljlYlh1fnw8WrAgT7wGJUkiqk1e6tmPHHjo69xPghBnRnHbnFEX8AvpK4yA-0hVXkQ/exec";
-        let isSignupMode = false;
-
-        window.onload = function() {
-            const savedUser = localStorage.getItem("jh_user_email");
-            if (savedUser) {
-                showDashboard(savedUser);
-            }
+        
+        function togglePassword() {
+            const p = document.getElementById("password");
+            const btn = event.target;
+            p.type = (p.type === "password") ? "text" : "password";
+            btn.innerText = (p.type === "password") ? "Show" : "Hide";
         }
 
         function toggleAuthMode() {
-            isSignupMode = !isSignupMode;
-            document.getElementById("auth-title").innerText = isSignupMode ? "Sign Up" : "Login";
-            document.getElementById("auth-btn").innerText = isSignupMode ? "Sign Up" : "Login";
-            document.getElementById("name-field").classList.toggle("hidden", !isSignupMode);
-            document.getElementById("switch-text").innerHTML = isSignupMode ? 
-                'Already have an account? <button onclick="toggleAuthMode()" class="text-indigo-400 hover:underline">Login</button>' : 
-                'Don\'t have an account? <button onclick="toggleAuthMode()" class="text-indigo-400 hover:underline">Sign Up</button>';
-            document.getElementById("auth-message").innerText = "";
+            const isSignup = document.getElementById("name-field").classList.toggle("hidden");
+            document.getElementById("auth-title").innerText = isSignup ? "Login" : "Sign Up";
+            document.getElementById("auth-btn").innerText = isSignup ? "Login" : "Sign Up";
         }
 
-        function handleAuth(event) {
-            event.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const name = document.getElementById("name").value;
-            const action = isSignupMode ? "signup" : "login";
-
-            document.getElementById("auth-btn").innerText = "Please wait...";
-
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                body: JSON.stringify({ action: action, email: email, password: password, name: name })
-            })
+        function handleAuth(e) {
+            e.preventDefault();
+            const action = document.getElementById("name-field").classList.contains("hidden") ? "login" : "signup";
+            const data = { action: action, email: document.getElementById("email").value, password: document.getElementById("password").value, name: document.getElementById("name").value };
+            fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
             .then(res => res.json())
-            .then(data => {
-                if (data.status === "success") {
-                    localStorage.setItem("jh_user_email", data.email);
-                    localStorage.setItem("jh_user_name", data.name || "User");
-                    showDashboard(data.email);
-                } else {
-                    document.getElementById("auth-message").innerText = data.message;
-                    document.getElementById("auth-btn").innerText = isSignupMode ? "Sign Up" : "Login";
-                }
-            })
-            .catch(err => {
-                document.getElementById("auth-message").innerText = "Something went wrong. Please try again.";
-                document.getElementById("auth-btn").innerText = isSignupMode ? "Sign Up" : "Login";
-            });
+            .then(data => { if (data.status === "success") { localStorage.setItem("jh_user_email", data.email); showDashboard(data.email); } else { document.getElementById("auth-message").innerText = data.message; } });
         }
 
         function showDashboard(email) {
@@ -156,41 +126,27 @@
             loadOrders(email);
         }
 
-        function logout() {
-            localStorage.removeItem("jh_user_email");
-            localStorage.removeItem("jh_user_name");
-            location.reload();
-        }
-
         function updateServiceDetails() {
-            const select = document.getElementById("service-select");
-            const selectedOption = select.options[select.selectedIndex];
-            const qty = selectedOption.getAttribute("data-qty") || "";
-            document.getElementById("order-quantity").value = qty;
+            const s = document.getElementById("service-select");
+            const opt = s.options[s.selectedIndex];
+            document.getElementById("order-quantity").value = opt.getAttribute("data-qty") || "";
+            document.getElementById("display-charge").innerText = opt.getAttribute("data-charge") || "0";
         }
 
-        function submitOrder(event) {
-            event.preventDefault();
-            const service = document.getElementById("service-select").value;
-            const link = document.getElementById("order-link").value;
-            const quantity = document.getElementById("order-quantity").value;
-            const selectOption = document.getElementById("service-select").selectedOptions[0];
-            const charge = selectOption.getAttribute("data-charge") + " Tk";
-            const email = localStorage.getItem("jh_user_email");
-
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                body: JSON.stringify({ service: service, link: link, quantity: quantity, charge: charge, email: email })
-            })
+        function submitOrder(e) {
+            e.preventDefault();
+            const select = document.getElementById("service-select");
+            const data = { 
+                service: select.value,
+                link: document.getElementById("order-link").value,
+                quantity: document.getElementById("order-quantity").value,
+                charge: select.selectedOptions[0].getAttribute("data-charge") + " Tk",
+                payment: document.querySelector('input[name="payment-method"]:checked').value,
+                email: localStorage.getItem("jh_user_email")
+            };
+            fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
             .then(res => res.json())
-            .then(data => {
-                if(data.status === "success") {
-                    alert("Order submitted successfully!");
-                    document.getElementById("order-form").reset();
-                    document.getElementById("order-quantity").value = "";
-                    loadOrders(email);
-                }
-            });
+            .then(data => { if(data.status === "success") { alert("Order placed!"); loadOrders(data.email); } });
         }
 
         function loadOrders(email) {
@@ -198,21 +154,13 @@
             .then(res => res.json())
             .then(data => {
                 const tbody = document.getElementById("orders-table-body");
-                tbody.innerHTML = "";
-                data.forEach(order => {
-                    tbody.innerHTML += `
-                        <tr class="border-b border-slate-800/50">
-                            <td class="p-3 font-medium">${order.orderId}</td>
-                            <td class="p-3">${order.service}</td>
-                            <td class="p-3 truncate max-w-xs"><a href="${order.link}" target="_blank" class="text-indigo-400 hover:underline">${order.link}</a></td>
-                            <td class="p-3">${order.quantity}</td>
-                            <td class="p-3">${order.charge}</td>
-                            <td class="p-3"><span class="px-2 py-1 text-xs rounded-full bg-amber-500/20 text-amber-400">${order.status}</span></td>
-                        </tr>
-                    `;
-                });
+                tbody.innerHTML = data.map(o => `<tr class="border-b border-slate-800">
+                    <td class="p-3">${o.orderId}</td><td class="p-3">${o.service}</td><td class="p-3">${o.charge}</td><td class="p-3">${o.payment}</td><td class="p-3 text-amber-400">${o.status}</td></tr>`).join('');
             });
         }
+        
+        window.onload = () => { if(localStorage.getItem("jh_user_email")) showDashboard(localStorage.getItem("jh_user_email")); };
+        function logout() { localStorage.removeItem("jh_user_email"); location.reload(); }
     </script>
 </body>
 </html>
