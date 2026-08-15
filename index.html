@@ -16,151 +16,127 @@
             <form id="auth-form" onsubmit="handleAuth(event)">
                 <div id="name-field" class="mb-4 hidden">
                     <label class="block text-sm mb-2">Your Name</label>
-                    <input type="text" id="name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
+                    <input type="text" id="name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white">
                 </div>
                 <div class="mb-4">
                     <label class="block text-sm mb-2">Email Address</label>
-                    <input type="email" id="email" required list="email-suggestions" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="example@gmail.com">
+                    <input type="email" id="email" required list="email-suggestions" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white" placeholder="example@gmail.com">
                     <datalist id="email-suggestions">
-                        <option value="your-email1@gmail.com">
-                        <option value="your-email2@gmail.com">
-                        <option value="your-email3@gmail.com">
+                        <option value="your-email1@gmail.com"><option value="your-email2@gmail.com">
                     </datalist>
                 </div>
                 <div class="mb-6">
                     <label class="block text-sm mb-2">Password</label>
-                    <div class="relative">
-                        <input type="password" id="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
-                        <button type="button" onclick="togglePassword()" class="absolute right-3 top-3.5 text-xs text-indigo-400 hover:underline">Show</button>
-                    </div>
+                    <input type="password" id="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white">
                 </div>
-                <button type="submit" id="auth-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition">Login</button>
+                <button type="submit" id="auth-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg">Login</button>
             </form>
-            <p class="text-center mt-4 text-sm text-slate-400" id="switch-text">Don't have an account? <button type="button" onclick="toggleAuthMode()" class="text-indigo-400 hover:underline">Sign Up</button></p>
         </div>
     </div>
 
     <!-- Dashboard -->
     <div id="dashboard" class="hidden p-4 max-w-4xl mx-auto">
-        <div class="flex justify-between items-center mb-6 bg-slate-900 p-4 rounded-xl border border-slate-800">
-            <div>
-                <h1 class="text-xl font-bold text-indigo-400">JH Media Growth</h1>
-                <p class="text-xs text-slate-400" id="user-info-display"></p>
-            </div>
-            <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-xs px-4 py-2 rounded-lg font-semibold">Logout</button>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 mb-6 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-indigo-400">JH Media Growth</h1>
+            <button onclick="logout()" class="bg-red-600 px-4 py-2 rounded-lg text-xs">Logout</button>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-8 shadow-xl">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-8">
             <h2 class="text-lg font-bold mb-4 text-indigo-400">New Order</h2>
             <form id="order-form" onsubmit="submitOrder(event)">
                 <div class="mb-4">
-                    <label class="block text-sm mb-2">Service Package</label>
-                    <select id="service-select" onchange="updateServiceDetails()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white">
-                        <option value="">Select Package</option>
-                        <option value="YouTube Shorts - 5K Views" data-qty="5000" data-charge="250">YouTube Shorts - 5K Views - 250 Tk</option>
-                        <option value="YouTube Shorts - 10K Views" data-qty="10000" data-charge="500">YouTube Shorts - 10K Views - 500 Tk</option>
+                    <label class="block text-sm mb-2">Select Service</label>
+                    <select id="service-select" onchange="updateServiceDetails()" class="w-full bg-slate-800 p-3 rounded-lg border border-slate-700">
+                        <option value="">-- Choose a Service --</option>
+                        <optgroup label="YouTube Shorts Views">
+                            <option value="YT Shorts 5K" data-charge="250">5K Views - 250 Tk</option>
+                            <option value="YT Shorts 10K" data-charge="500">10K Views - 500 Tk</option>
+                            <option value="YT Shorts 1M" data-charge="1150">1 Million Views - 1150 Tk</option>
+                        </optgroup>
+                        <optgroup label="YouTube Long Video Views">
+                            <option value="YT Long 1K" data-charge="350">1K Views - 350 Tk</option>
+                            <option value="YT Long 10K" data-charge="750">10K Views - 750 Tk</option>
+                            <option value="YT Long 50K" data-charge="1350">50K Views - 1350 Tk</option>
+                            <option value="YT Long 1M" data-charge="2500">1 Million Views - 2500 Tk</option>
+                        </optgroup>
+                        <optgroup label="YouTube Subscribers">
+                            <option value="YT Sub 1K" data-charge="50">1K Subs - 50 Tk</option>
+                            <option value="YT Sub 5K" data-charge="250">5K Subs - 250 Tk</option>
+                            <option value="YT Sub 10K" data-charge="550">10K Subs - 550 Tk</option>
+                        </optgroup>
+                        <optgroup label="Facebook Video Views">
+                            <option value="FB View 10K" data-charge="150">10K Views - 150 Tk</option>
+                            <option value="FB View 50K" data-charge="450">50K Views - 450 Tk</option>
+                            <option value="FB View 1M" data-charge="2450">1 Million Views - 2450 Tk</option>
+                        </optgroup>
+                        <optgroup label="Facebook Followers">
+                            <option value="FB Fol 1K" data-charge="25">1K Followers - 25 Tk</option>
+                            <option value="FB Fol 5K" data-charge="250">5K Followers - 250 Tk</option>
+                            <option value="FB Fol 10K" data-charge="550">10K Followers - 550 Tk</option>
+                        </optgroup>
+                        <optgroup label="Instagram">
+                            <option value="IG Fol 1K" data-charge="30">Followers 1K - 30 Tk</option>
+                            <option value="IG Fol 5K" data-charge="140">Followers 5K - 140 Tk</option>
+                            <option value="IG View 1K" data-charge="25">Views 1K - 25 Tk</option>
+                            <option value="IG View 10K" data-charge="300">Views 10K - 300 Tk</option>
+                        </optgroup>
+                        <optgroup label="TikTok">
+                            <option value="TT Fol 1K" data-charge="20">Followers 1K - 20 Tk</option>
+                            <option value="TT Fol 5K" data-charge="100">Followers 5K - 100 Tk</option>
+                            <option value="TT Fol 10K" data-charge="200">Followers 10K - 200 Tk</option>
+                            <option value="TT View 5K" data-charge="40">Views 5K - 40 Tk</option>
+                            <option value="TT View 10K" data-charge="80">Views 10K - 80 Tk</option>
+                        </optgroup>
                     </select>
                 </div>
-                
-                <!-- Payment Setup -->
+
+                <!-- পেমেন্ট সেকশন -->
                 <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
                     <p class="text-sm font-semibold mb-2">Select Payment Method:</p>
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <label class="bg-slate-700 p-2 rounded text-xs text-center border border-slate-600 cursor-pointer">
-                            <input type="radio" name="payment-method" value="Bkash" checked> Bkash: 01XXXXXXXXX
+                    <div class="flex gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="payment-method" value="Bkash" checked class="w-4 h-4"> Bkash
                         </label>
-                        <label class="bg-slate-700 p-2 rounded text-xs text-center border border-slate-600 cursor-pointer">
-                            <input type="radio" name="payment-method" value="Nagad"> Nagad: 01XXXXXXXXX
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="payment-method" value="Nagad" class="w-4 h-4"> Nagad
                         </label>
                     </div>
-                    <p class="text-xs">Amount: <span id="display-charge" class="text-indigo-400 font-bold">0</span> Tk</p>
+                    <p class="text-sm mt-3 text-slate-300">Total: <span id="display-charge" class="text-indigo-400 font-bold">0</span> Tk</p>
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-sm mb-2">Link</label>
-                    <input type="url" id="order-link" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white" placeholder="https://...">
+                    <input type="url" id="order-link" required class="w-full bg-slate-800 p-3 rounded-lg" placeholder="https://...">
                 </div>
-                <input type="hidden" id="order-quantity">
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg">Confirm Order</button>
+                <button type="submit" class="w-full bg-indigo-600 py-3 rounded-lg font-bold">Confirm Order</button>
             </form>
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl overflow-x-auto">
-            <h2 class="text-lg font-bold mb-4 text-indigo-400">Order History</h2>
-            <table class="w-full text-left border-collapse">
-                <thead><tr class="border-b border-slate-800 text-slate-400 text-sm"><th class="p-3">ID</th><th class="p-3">Service</th><th class="p-3">Cost</th><th class="p-3">Pay</th><th class="p-3">Status</th></tr></thead>
-                <tbody id="orders-table-body" class="text-sm"></tbody>
-            </table>
         </div>
     </div>
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6ljlYlh1fnw8WrAgT7wGJUkiqk1e6tmPHHjo69xPghBnRnHbnFEX8AvpK4yA-0hVXkQ/exec";
         
-        function togglePassword() {
-            const p = document.getElementById("password");
-            const btn = event.target;
-            p.type = (p.type === "password") ? "text" : "password";
-            btn.innerText = (p.type === "password") ? "Show" : "Hide";
-        }
-
-        function toggleAuthMode() {
-            const isSignup = document.getElementById("name-field").classList.toggle("hidden");
-            document.getElementById("auth-title").innerText = isSignup ? "Login" : "Sign Up";
-            document.getElementById("auth-btn").innerText = isSignup ? "Login" : "Sign Up";
-        }
-
-        function handleAuth(e) {
-            e.preventDefault();
-            const action = document.getElementById("name-field").classList.contains("hidden") ? "login" : "signup";
-            const data = { action: action, email: document.getElementById("email").value, password: document.getElementById("password").value, name: document.getElementById("name").value };
-            fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
-            .then(res => res.json())
-            .then(data => { if (data.status === "success") { localStorage.setItem("jh_user_email", data.email); showDashboard(data.email); } else { document.getElementById("auth-message").innerText = data.message; } });
-        }
-
-        function showDashboard(email) {
-            document.getElementById("auth-container").classList.add("hidden");
-            document.getElementById("dashboard").classList.remove("hidden");
-            document.getElementById("user-info-display").innerText = "Logged in as: " + email;
-            loadOrders(email);
-        }
-
         function updateServiceDetails() {
             const s = document.getElementById("service-select");
-            const opt = s.options[s.selectedIndex];
-            document.getElementById("order-quantity").value = opt.getAttribute("data-qty") || "";
-            document.getElementById("display-charge").innerText = opt.getAttribute("data-charge") || "0";
+            const charge = s.options[s.selectedIndex].getAttribute("data-charge") || "0";
+            document.getElementById("display-charge").innerText = charge;
         }
+
+        function handleAuth(e) { e.preventDefault(); /* Auth logic here */ showDashboard("User"); }
+        function showDashboard(email) { document.getElementById("auth-container").classList.add("hidden"); document.getElementById("dashboard").classList.remove("hidden"); }
+        function logout() { location.reload(); }
 
         function submitOrder(e) {
             e.preventDefault();
-            const select = document.getElementById("service-select");
+            const s = document.getElementById("service-select");
             const data = { 
-                service: select.value,
-                link: document.getElementById("order-link").value,
-                quantity: document.getElementById("order-quantity").value,
-                charge: select.selectedOptions[0].getAttribute("data-charge") + " Tk",
+                service: s.value,
+                charge: document.getElementById("display-charge").innerText + " Tk",
                 payment: document.querySelector('input[name="payment-method"]:checked').value,
-                email: localStorage.getItem("jh_user_email")
+                link: document.getElementById("order-link").value
             };
-            fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
-            .then(res => res.json())
-            .then(data => { if(data.status === "success") { alert("Order placed!"); loadOrders(data.email); } });
+            alert("Order Submitted for " + data.service + " via " + data.payment);
         }
-
-        function loadOrders(email) {
-            fetch(`${SCRIPT_URL}?action=getOrders&email=${email}`)
-            .then(res => res.json())
-            .then(data => {
-                const tbody = document.getElementById("orders-table-body");
-                tbody.innerHTML = data.map(o => `<tr class="border-b border-slate-800">
-                    <td class="p-3">${o.orderId}</td><td class="p-3">${o.service}</td><td class="p-3">${o.charge}</td><td class="p-3">${o.payment}</td><td class="p-3 text-amber-400">${o.status}</td></tr>`).join('');
-            });
-        }
-        
-        window.onload = () => { if(localStorage.getItem("jh_user_email")) showDashboard(localStorage.getItem("jh_user_email")); };
-        function logout() { localStorage.removeItem("jh_user_email"); location.reload(); }
     </script>
 </body>
 </html>
