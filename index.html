@@ -13,129 +13,269 @@
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-md shadow-xl">
             <h2 id="auth-title" class="text-2xl font-bold text-center mb-6 text-indigo-400">Login</h2>
             <div id="auth-message" class="mb-4 text-sm text-center text-red-400"></div>
+            
             <form id="auth-form" onsubmit="handleAuth(event)">
                 <div id="name-field" class="mb-4 hidden">
                     <label class="block text-sm mb-2">Your Name</label>
-                    <input type="text" id="name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white">
+                    <input type="text" id="name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="Enter your name">
                 </div>
+
                 <div class="mb-4">
                     <label class="block text-sm mb-2">Email Address</label>
-                    <input type="email" id="email" required list="email-suggestions" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white" placeholder="example@gmail.com">
+                    <input type="email" id="email" required list="email-suggestions" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="example@gmail.com">
                     <datalist id="email-suggestions">
-                        <option value="your-email1@gmail.com"><option value="your-email2@gmail.com">
+                        <option value="your-email1@gmail.com">
+                        <option value="your-email2@gmail.com">
+                        <option value="your-email3@gmail.com">
                     </datalist>
                 </div>
+
                 <div class="mb-6">
                     <label class="block text-sm mb-2">Password</label>
-                    <input type="password" id="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white">
+                    <div class="relative">
+                        <input type="password" id="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="********">
+                        <button type="button" onclick="togglePassword()" class="absolute right-3 top-3.5 text-xs text-indigo-400 hover:underline font-medium">Show</button>
+                    </div>
                 </div>
-                <button type="submit" id="auth-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg">Login</button>
+
+                <button type="submit" id="auth-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition duration-200">Login</button>
             </form>
+
+            <div class="text-center mt-4">
+                <p id="switch-text" class="text-sm text-slate-400">Don't have an account? <button type="button" onclick="toggleAuthMode()" class="text-indigo-400 hover:underline font-medium">Sign Up</button></p>
+            </div>
         </div>
     </div>
 
     <!-- Dashboard -->
     <div id="dashboard" class="hidden p-4 max-w-4xl mx-auto">
-        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 mb-6 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-indigo-400">JH Media Growth</h1>
-            <button onclick="logout()" class="bg-red-600 px-4 py-2 rounded-lg text-xs">Logout</button>
+        <div class="flex justify-between items-center mb-6 bg-slate-900 p-4 rounded-xl border border-slate-800">
+            <div>
+                <h1 class="text-xl font-bold text-indigo-400">JH Media Growth</h1>
+                <p class="text-xs text-slate-400" id="user-info-display"></p>
+            </div>
+            <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-xs px-4 py-2 rounded-lg font-semibold transition">Logout</button>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-8">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl mb-8 shadow-xl">
             <h2 class="text-lg font-bold mb-4 text-indigo-400">New Order</h2>
             <form id="order-form" onsubmit="submitOrder(event)">
+                
+                <!-- Service Selection with ALL services -->
                 <div class="mb-4">
-                    <label class="block text-sm mb-2">Select Service</label>
-                    <select id="service-select" onchange="updateServiceDetails()" class="w-full bg-slate-800 p-3 rounded-lg border border-slate-700">
+                    <label class="block text-sm mb-2">Service Package</label>
+                    <select id="service-select" onchange="updateServiceDetails()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
                         <option value="">-- Choose a Service --</option>
+                        
                         <optgroup label="YouTube Shorts Views">
-                            <option value="YT Shorts 5K" data-charge="250">5K Views - 250 Tk</option>
-                            <option value="YT Shorts 10K" data-charge="500">10K Views - 500 Tk</option>
-                            <option value="YT Shorts 1M" data-charge="1150">1 Million Views - 1150 Tk</option>
+                            <option value="YouTube Shorts - 5K Views" data-qty="5000" data-charge="250">YouTube Shorts - 5K Views - 250 Tk</option>
+                            <option value="YouTube Shorts - 10K Views" data-qty="10000" data-charge="500">YouTube Shorts - 10K Views - 500 Tk</option>
+                            <option value="YouTube Shorts - 1M Views" data-qty="1000000" data-charge="1150">YouTube Shorts - 1M Views - 1150 Tk</option>
                         </optgroup>
+
                         <optgroup label="YouTube Long Video Views">
-                            <option value="YT Long 1K" data-charge="350">1K Views - 350 Tk</option>
-                            <option value="YT Long 10K" data-charge="750">10K Views - 750 Tk</option>
-                            <option value="YT Long 50K" data-charge="1350">50K Views - 1350 Tk</option>
-                            <option value="YT Long 1M" data-charge="2500">1 Million Views - 2500 Tk</option>
+                            <option value="YouTube Long - 1K Views" data-qty="1000" data-charge="350">YouTube Long - 1K Views - 350 Tk</option>
+                            <option value="YouTube Long - 10K Views" data-qty="10000" data-charge="750">YouTube Long - 10K Views - 750 Tk</option>
+                            <option value="YouTube Long - 50K Views" data-qty="50000" data-charge="1350">YouTube Long - 50K Views - 1350 Tk</option>
+                            <option value="YouTube Long - 1M Views" data-qty="1000000" data-charge="2500">YouTube Long - 1M Views - 2500 Tk</option>
                         </optgroup>
+
                         <optgroup label="YouTube Subscribers">
-                            <option value="YT Sub 1K" data-charge="50">1K Subs - 50 Tk</option>
-                            <option value="YT Sub 5K" data-charge="250">5K Subs - 250 Tk</option>
-                            <option value="YT Sub 10K" data-charge="550">10K Subs - 550 Tk</option>
+                            <option value="YouTube Subscribers - 1K" data-qty="1000" data-charge="50">YouTube Subscribers - 1K - 50 Tk</option>
+                            <option value="YouTube Subscribers - 5K" data-qty="5000" data-charge="250">YouTube Subscribers - 5K - 250 Tk</option>
+                            <option value="YouTube Subscribers - 10K" data-qty="10000" data-charge="550">YouTube Subscribers - 10K - 550 Tk</option>
                         </optgroup>
+
                         <optgroup label="Facebook Video Views">
-                            <option value="FB View 10K" data-charge="150">10K Views - 150 Tk</option>
-                            <option value="FB View 50K" data-charge="450">50K Views - 450 Tk</option>
-                            <option value="FB View 1M" data-charge="2450">1 Million Views - 2450 Tk</option>
+                            <option value="Facebook Video - 10K Views" data-qty="10000" data-charge="150">Facebook Video - 10K Views - 150 Tk</option>
+                            <option value="Facebook Video - 50K Views" data-qty="50000" data-charge="450">Facebook Video - 50K Views - 450 Tk</option>
+                            <option value="Facebook Video - 1M Views" data-qty="1000000" data-charge="2450">Facebook Video - 1M Views - 2450 Tk</option>
                         </optgroup>
+
                         <optgroup label="Facebook Followers">
-                            <option value="FB Fol 1K" data-charge="25">1K Followers - 25 Tk</option>
-                            <option value="FB Fol 5K" data-charge="250">5K Followers - 250 Tk</option>
-                            <option value="FB Fol 10K" data-charge="550">10K Followers - 550 Tk</option>
+                            <option value="Facebook Followers - 1K" data-qty="1000" data-charge="25">Facebook Followers - 1K - 25 Tk</option>
+                            <option value="Facebook Followers - 5K" data-qty="5000" data-charge="250">Facebook Followers - 5K - 250 Tk</option>
+                            <option value="Facebook Followers - 10K" data-qty="10000" data-charge="550">Facebook Followers - 10K - 550 Tk</option>
                         </optgroup>
-                        <optgroup label="Instagram">
-                            <option value="IG Fol 1K" data-charge="30">Followers 1K - 30 Tk</option>
-                            <option value="IG Fol 5K" data-charge="140">Followers 5K - 140 Tk</option>
-                            <option value="IG View 1K" data-charge="25">Views 1K - 25 Tk</option>
-                            <option value="IG View 10K" data-charge="300">Views 10K - 300 Tk</option>
+
+                        <optgroup label="Instagram Followers & Views">
+                            <option value="Instagram Followers - 1K" data-qty="1000" data-charge="30">Instagram Followers - 1K - 30 Tk</option>
+                            <option value="Instagram Followers - 5K" data-qty="5000" data-charge="140">Instagram Followers - 5K - 140 Tk</option>
+                            <option value="Instagram Views - 1K" data-qty="1000" data-charge="25">Instagram Views - 1K - 25 Tk</option>
+                            <option value="Instagram Views - 10K" data-qty="10000" data-charge="300">Instagram Views - 10K - 300 Tk</option>
                         </optgroup>
-                        <optgroup label="TikTok">
-                            <option value="TT Fol 1K" data-charge="20">Followers 1K - 20 Tk</option>
-                            <option value="TT Fol 5K" data-charge="100">Followers 5K - 100 Tk</option>
-                            <option value="TT Fol 10K" data-charge="200">Followers 10K - 200 Tk</option>
-                            <option value="TT View 5K" data-charge="40">Views 5K - 40 Tk</option>
-                            <option value="TT View 10K" data-charge="80">Views 10K - 80 Tk</option>
+
+                        <optgroup label="TikTok Followers & Views">
+                            <option value="TikTok Followers - 1K" data-qty="1000" data-charge="20">TikTok Followers - 1K - 20 Tk</option>
+                            <option value="TikTok Followers - 5K" data-qty="5000" data-charge="100">TikTok Followers - 5K - 100 Tk</option>
+                            <option value="TikTok Followers - 10K" data-qty="10000" data-charge="200">TikTok Followers - 10K - 200 Tk</option>
+                            <option value="TikTok Views - 5K" data-qty="5000" data-charge="40">TikTok Views - 5K - 40 Tk</option>
+                            <option value="TikTok Views - 10K" data-qty="10000" data-charge="80">TikTok Views - 10K - 80 Tk</option>
                         </optgroup>
                     </select>
                 </div>
 
-                <!-- পেমেন্ট সেকশন -->
+                <!-- Payment Setup (Bkash & Nagad) -->
                 <div class="bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700">
                     <p class="text-sm font-semibold mb-2">Select Payment Method:</p>
-                    <div class="flex gap-4">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="payment-method" value="Bkash" checked class="w-4 h-4"> Bkash
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                        <label class="flex items-center gap-2 bg-slate-700 p-3 rounded text-xs border border-slate-600 cursor-pointer">
+                            <input type="radio" name="payment-method" value="Bkash" checked class="w-4 h-4"> 
+                            <span>Bkash: 01XXXXXXXXX</span>
                         </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="payment-method" value="Nagad" class="w-4 h-4"> Nagad
+                        <label class="flex items-center gap-2 bg-slate-700 p-3 rounded text-xs border border-slate-600 cursor-pointer">
+                            <input type="radio" name="payment-method" value="Nagad" class="w-4 h-4"> 
+                            <span>Nagad: 01XXXXXXXXX</span>
                         </label>
                     </div>
-                    <p class="text-sm mt-3 text-slate-300">Total: <span id="display-charge" class="text-indigo-400 font-bold">0</span> Tk</p>
+                    <p class="text-xs">Amount: <span id="display-charge" class="text-indigo-400 font-bold">0</span> Tk</p>
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-sm mb-2">Link</label>
-                    <input type="url" id="order-link" required class="w-full bg-slate-800 p-3 rounded-lg" placeholder="https://...">
+                    <input type="url" id="order-link" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500" placeholder="https://...">
                 </div>
-                <button type="submit" class="w-full bg-indigo-600 py-3 rounded-lg font-bold">Confirm Order</button>
+
+                <input type="hidden" id="order-quantity">
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition">Confirm Order</button>
             </form>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl overflow-x-auto">
+            <h2 class="text-lg font-bold mb-4 text-indigo-400">Order History</h2>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-slate-800 text-slate-400 text-sm">
+                        <th class="p-3">ID</th>
+                        <th class="p-3">Service</th>
+                        <th class="p-3">Cost</th>
+                        <th class="p-3">Pay</th>
+                        <th class="p-3">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table-body" class="text-sm"></tbody>
+            </table>
         </div>
     </div>
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6ljlYlh1fnw8WrAgT7wGJUkiqk1e6tmPHHjo69xPghBnRnHbnFEX8AvpK4yA-0hVXkQ/exec";
-        
-        function updateServiceDetails() {
-            const s = document.getElementById("service-select");
-            const charge = s.options[s.selectedIndex].getAttribute("data-charge") || "0";
-            document.getElementById("display-charge").innerText = charge;
+        let isSignupMode = false;
+
+        window.onload = () => {
+            const savedEmail = localStorage.getItem("jh_user_email");
+            if (savedEmail) showDashboard(savedEmail);
+        };
+
+        function togglePassword() {
+            const p = document.getElementById("password");
+            const btn = event.target;
+            if (p.type === "password") { 
+                p.type = "text"; 
+                btn.innerText = "Hide"; 
+            } else { 
+                p.type = "password"; 
+                btn.innerText = "Show"; 
+            }
         }
 
-        function handleAuth(e) { e.preventDefault(); /* Auth logic here */ showDashboard("User"); }
-        function showDashboard(email) { document.getElementById("auth-container").classList.add("hidden"); document.getElementById("dashboard").classList.remove("hidden"); }
-        function logout() { location.reload(); }
+        function toggleAuthMode() {
+            isSignupMode = !isSignupMode;
+            document.getElementById("auth-title").innerText = isSignupMode ? "Sign Up" : "Login";
+            document.getElementById("auth-btn").innerText = isSignupMode ? "Sign Up" : "Login";
+            document.getElementById("name-field").classList.toggle("hidden", !isSignupMode);
+            document.getElementById("switch-text").innerHTML = isSignupMode ? 
+                'Already have an account? <button type="button" onclick="toggleAuthMode()" class="text-indigo-400 hover:underline font-medium">Login</button>' : 
+                'Don\'t have an account? <button type="button" onclick="toggleAuthMode()" class="text-indigo-400 hover:underline font-medium">Sign Up</button>';
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const name = document.getElementById("name").value;
+            
+            fetch(SCRIPT_URL, { 
+                method: "POST", 
+                body: JSON.stringify({ action: isSignupMode ? "signup" : "login", email, password, name }) 
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "success") {
+                    localStorage.setItem("jh_user_email", data.email);
+                    showDashboard(data.email);
+                } else { 
+                    document.getElementById("auth-message").innerText = data.message; 
+                }
+            });
+        }
+
+        function showDashboard(email) {
+            document.getElementById("auth-container").classList.add("hidden");
+            document.getElementById("dashboard").classList.remove("hidden");
+            document.getElementById("user-info-display").innerText = "Logged in as: " + email;
+            loadOrders(email);
+        }
+
+        function logout() { 
+            localStorage.removeItem("jh_user_email"); 
+            location.reload(); 
+        }
+
+        function updateServiceDetails() {
+            const s = document.getElementById("service-select");
+            const opt = s.options[s.selectedIndex];
+            document.getElementById("order-quantity").value = opt.getAttribute("data-qty") || "";
+            document.getElementById("display-charge").innerText = opt.getAttribute("data-charge") || "0";
+        }
 
         function submitOrder(e) {
             e.preventDefault();
-            const s = document.getElementById("service-select");
+            const select = document.getElementById("service-select");
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            const email = localStorage.getItem("jh_user_email");
+
             const data = { 
-                service: s.value,
-                charge: document.getElementById("display-charge").innerText + " Tk",
-                payment: document.querySelector('input[name="payment-method"]:checked').value,
-                link: document.getElementById("order-link").value
+                service: select.value,
+                link: document.getElementById("order-link").value,
+                quantity: document.getElementById("order-quantity").value,
+                charge: select.selectedOptions[0].getAttribute("data-charge") + " Tk",
+                payment: paymentMethod,
+                email: email
             };
-            alert("Order Submitted for " + data.service + " via " + data.payment);
+            
+            fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
+            .then(res => res.json())
+            .then(response => { 
+                if(response.status === "success") { 
+                    alert("Order submitted successfully!"); 
+                    loadOrders(email); 
+                    document.getElementById("order-form").reset();
+                    document.getElementById("display-charge").innerText = "0";
+                } else {
+                    alert("Error: " + response.message);
+                }
+            });
+        }
+
+        function loadOrders(email) {
+            fetch(`${SCRIPT_URL}?action=getOrders&email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.getElementById("orders-table-body");
+                if (!Array.isArray(data) || data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="p-3 text-center text-slate-500">No orders found.</td></tr>`;
+                    return;
+                }
+                tbody.innerHTML = data.map(o => `
+                    <tr class="border-b border-slate-800">
+                        <td class="p-3">${o.orderId}</td>
+                        <td class="p-3">${o.service}</td>
+                        <td class="p-3">${o.charge}</td>
+                        <td class="p-3">${o.payment || 'Bkash'}</td>
+                        <td class="p-3 text-amber-400">${o.status}</td>
+                    </tr>`).join('');
+            });
         }
     </script>
 </body>
