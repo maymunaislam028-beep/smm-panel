@@ -35,56 +35,56 @@
       <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-4">
         <div>
           <label class="block text-sm font-medium mb-2">Service Package</label>
-          <select id="serviceSelect" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
+          <select id="serviceSelect" onchange="onServiceChange()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
             <option value="">Select Package</option>
             
             <!-- YouTube Shorts -->
             <optgroup label="YouTube Shorts Views">
-              <option value="YouTube Shorts - 5K Views" data-price="250">YouTube Shorts - 5K (250 Tk)</option>
-              <option value="YouTube Shorts - 10K Views" data-price="500">YouTube Shorts - 10K (500 Tk)</option>
-              <option value="YouTube Shorts - 1M Views" data-price="1150">YouTube Shorts - 1 Million (1150 Tk)</option>
+              <option value="YouTube Shorts - 5K Views" data-price="250" data-qty="5000">YouTube Shorts - 5K (250 Tk)</option>
+              <option value="YouTube Shorts - 10K Views" data-price="500" data-qty="10000">YouTube Shorts - 10K (500 Tk)</option>
+              <option value="YouTube Shorts - 1M Views" data-price="1150" data-qty="1000000">YouTube Shorts - 1 Million (1150 Tk)</option>
             </optgroup>
 
             <!-- YouTube Long Video -->
             <optgroup label="YouTube Long Video">
-              <option value="YouTube Long - 1K Views" data-price="350">YouTube Long - 1K (350 Tk)</option>
-              <option value="YouTube Long - 10K Views" data-price="750">YouTube Long - 10K (750 Tk)</option>
-              <option value="YouTube Long - 50K Views" data-price="1350">YouTube Long - 50K (1350 Tk)</option>
-              <option value="YouTube Long - 1000K Views" data-price="2500">YouTube Long - 1000K (2500 Tk)</option>
+              <option value="YouTube Long - 1K Views" data-price="350" data-qty="1000">YouTube Long - 1K (350 Tk)</option>
+              <option value="YouTube Long - 10K Views" data-price="750" data-qty="10000">YouTube Long - 10K (750 Tk)</option>
+              <option value="YouTube Long - 50K Views" data-price="1350" data-qty="50000">YouTube Long - 50K (1350 Tk)</option>
+              <option value="YouTube Long - 1000K Views" data-price="2500" data-qty="1000000">YouTube Long - 1000K (2500 Tk)</option>
             </optgroup>
 
             <!-- YouTube Subscribers -->
             <optgroup label="YouTube Subscribers">
-              <option value="YouTube Subscribers - 1000 Subs" data-price="50">YouTube Subs - 1000 (50 Tk)</option>
-              <option value="YouTube Subscribers - 5000 Subs" data-price="250">YouTube Subs - 5000 (250 Tk)</option>
-              <option value="YouTube Subscribers - 10000 Subs" data-price="550">YouTube Subs - 10000 (550 Tk)</option>
+              <option value="YouTube Subscribers - 1000 Subs" data-price="50" data-qty="1000">YouTube Subs - 1000 (50 Tk)</option>
+              <option value="YouTube Subscribers - 5000 Subs" data-price="250" data-qty="5000">YouTube Subs - 5000 (250 Tk)</option>
+              <option value="YouTube Subscribers - 10000 Subs" data-price="550" data-qty="10000">YouTube Subs - 10000 (550 Tk)</option>
             </optgroup>
 
             <!-- Facebook Video & Followers -->
             <optgroup label="Facebook Services">
-              <option value="FB Video - 10K Views" data-price="150">FB Video - 10K Views (150 Tk)</option>
-              <option value="FB Video - 50K Views" data-price="450">FB Video - 50K Views (450 Tk)</option>
-              <option value="FB Video - 1M Views" data-price="2450">FB Video - 1 Million Views (2450 Tk)</option>
-              <option value="FB Followers - 1000" data-price="25">FB Followers - 1000 (25 Tk)</option>
-              <option value="FB Followers - 5000" data-price="250">FB Followers - 5000 (250 Tk)</option>
-              <option value="FB Followers - 10000" data-price="550">FB Followers - 10000 (550 Tk)</option>
+              <option value="FB Video - 10K Views" data-price="150" data-qty="10000">FB Video - 10K Views (150 Tk)</option>
+              <option value="FB Video - 50K Views" data-price="450" data-qty="50000">FB Video - 50K Views (450 Tk)</option>
+              <option value="FB Video - 1M Views" data-price="2450" data-qty="1000000">FB Video - 1 Million Views (2450 Tk)</option>
+              <option value="FB Followers - 1000" data-price="25" data-qty="1000">FB Followers - 1000 (25 Tk)</option>
+              <option value="FB Followers - 5000" data-price="250" data-qty="5000">FB Followers - 5000 (250 Tk)</option>
+              <option value="FB Followers - 10000" data-price="550" data-qty="10000">FB Followers - 10000 (550 Tk)</option>
             </optgroup>
 
             <!-- Instagram Services -->
             <optgroup label="Instagram Services">
-              <option value="IG Followers - 1000" data-price="30">IG Followers - 1000 (30 Tk)</option>
-              <option value="IG Followers - 5000" data-price="140">IG Followers - 5000 (140 Tk)</option>
-              <option value="IG Views - 1000" data-price="25">IG Views - 1000 (25 Tk)</option>
-              <option value="IG Views - 10000" data-price="300">IG Views - 10000 (300 Tk)</option>
+              <option value="IG Followers - 1000" data-price="30" data-qty="1000">IG Followers - 1000 (30 Tk)</option>
+              <option value="IG Followers - 5000" data-price="140" data-qty="5000">IG Followers - 5000 (140 Tk)</option>
+              <option value="IG Views - 1000" data-price="25" data-qty="1000">IG Views - 1000 (25 Tk)</option>
+              <option value="IG Views - 10000" data-price="300" data-qty="10000">IG Views - 10000 (300 Tk)</option>
             </optgroup>
 
             <!-- TikTok Services -->
             <optgroup label="TikTok Services">
-              <option value="TikTok Followers - 1000" data-price="20">TikTok Followers - 1000 (20 Tk)</option>
-              <option value="TikTok Followers - 5000" data-price="100">TikTok Followers - 5000 (100 Tk)</option>
-              <option value="TikTok Followers - 10000" data-price="200">TikTok Followers - 10000 (200 Tk)</option>
-              <option value="TikTok Views - 5K" data-price="40">TikTok Views - 5K (40 Tk)</option>
-              <option value="TikTok Views - 10000" data-price="80">TikTok Views - 10000 (80 Tk)</option>
+              <option value="TikTok Followers - 1000" data-price="20" data-qty="1000">TikTok Followers - 1000 (20 Tk)</option>
+              <option value="TikTok Followers - 5000" data-price="100" data-qty="5000">TikTok Followers - 5000 (100 Tk)</option>
+              <option value="TikTok Followers - 10000" data-price="200" data-qty="10000">TikTok Followers - 10000 (200 Tk)</option>
+              <option value="TikTok Views - 5K" data-price="40" data-qty="5000">TikTok Views - 5K (40 Tk)</option>
+              <option value="TikTok Views - 10000" data-price="80" data-qty="10000">TikTok Views - 10000 (80 Tk)</option>
             </optgroup>
 
           </select>
@@ -96,13 +96,8 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-2">Quantity / Details Note</label>
-          <input type="text" id="orderQty" placeholder="e.g. 5000 or Package Name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium mb-2">Email</label>
-          <input type="email" id="orderEmail" placeholder="your@email.com" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm focus:outline-none focus:border-indigo-500" required>
+          <label class="block text-sm font-medium mb-2">Quantity (Auto-filled)</label>
+          <input type="text" id="orderQty" readonly class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-sm text-slate-400 cursor-not-allowed focus:outline-none" placeholder="Select a package first" required>
         </div>
 
         <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-lg transition duration-200">
@@ -124,7 +119,7 @@
               <th class="py-3 px-3">Order ID</th>
               <th class="py-3 px-3">Service</th>
               <th class="py-3 px-3">Link</th>
-              <th class="py-3 px-3">Qty/Info</th>
+              <th class="py-3 px-3">Qty</th>
               <th class="py-3 px-3">Cost</th>
               <th class="py-3 px-3">Status</th>
             </tr>
@@ -143,6 +138,19 @@
   <!-- JavaScript Integration -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwz8X6MdPxfBWHM2FQqWYeUsmk0rf_YkOkFeYE9ihWCl1AMvL7Qbm9Bm9oSlG-5uBd0kQ/exec";
+
+    // Auto fill quantity when service is selected
+    function onServiceChange() {
+      const serviceSelect = document.getElementById("serviceSelect");
+      const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+      const qtyInput = document.getElementById("orderQty");
+      
+      if (selectedOption && selectedOption.dataset.qty) {
+        qtyInput.value = selectedOption.dataset.qty;
+      } else {
+        qtyInput.value = "";
+      }
+    }
 
     // Load Orders from API
     async function loadOrders() {
@@ -183,11 +191,10 @@
       
       const link = document.getElementById("orderLink").value;
       const qty = document.getElementById("orderQty").value;
-      const email = document.getElementById("orderEmail").value;
       
       const cost = price + " Tk";
 
-      const orderData = { service, link, quantity: qty, email, charge: cost };
+      const orderData = { service, link, quantity: qty, charge: cost };
 
       try {
         const response = await fetch(SCRIPT_URL, {
@@ -199,6 +206,7 @@
 
         alert("Order submitted successfully!");
         document.getElementById("orderForm").reset();
+        document.getElementById("orderQty").value = "";
         setTimeout(loadOrders, 2000);
       } catch (err) {
         console.error("Order submission error:", err);
