@@ -8,7 +8,7 @@
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
 
-    <!-- Auth Container (Login / Signup) -->
+    <!-- Auth Container -->
     <div id="auth-container" class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl w-full max-w-md shadow-2xl">
             <h2 id="auth-title" class="text-2xl font-bold text-center mb-6 text-indigo-400">Login</h2>
@@ -48,7 +48,6 @@
 
     <!-- Dashboard -->
     <div id="dashboard" class="hidden p-4 max-w-4xl mx-auto">
-        <!-- Top Bar -->
         <div class="flex justify-between items-center mb-6 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-md">
             <div>
                 <h1 class="text-xl font-bold text-indigo-400">JH Media Growth</h1>
@@ -57,12 +56,11 @@
             <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-xs px-4 py-2 rounded-lg font-semibold transition">Logout</button>
         </div>
 
-        <!-- New Order Form -->
         <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl mb-8 shadow-xl">
             <h2 class="text-lg font-bold mb-4 text-indigo-400">New Order</h2>
             <form id="order-form" onsubmit="submitOrder(event)">
                 
-                <!-- Service Selection -->
+                <!-- Full Service Selection -->
                 <div class="mb-4">
                     <label class="block text-sm mb-2 text-slate-300">Service Package</label>
                     <select id="service-select" required onchange="updateServiceDetails()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-indigo-500">
@@ -116,7 +114,7 @@
                     </select>
                 </div>
 
-                <!-- Payment Setup (Bkash & Nagad) -->
+                <!-- Payment Setup -->
                 <div class="bg-slate-900 p-4 rounded-lg mb-4 border border-slate-700">
                     <p class="text-sm font-semibold mb-2 text-slate-300">Select Payment Method:</p>
                     <div class="grid grid-cols-2 gap-2 mb-3">
@@ -177,7 +175,6 @@
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6ljlYlh1fnw8WrAgT7wGJUkiqk1e6tmPHHjo69xPghBnRnHbnFEX8AvpK4yA-0hVXkQ/exec";
         let isSignupMode = false;
 
-        // Session Management via localStorage
         window.onload = () => {
             const savedEmail = localStorage.getItem("jh_user_email");
             if (savedEmail) showDashboard(savedEmail);
@@ -244,8 +241,13 @@
         function updateServiceDetails() {
             const s = document.getElementById("service-select");
             const opt = s.options[s.selectedIndex];
-            document.getElementById("order-quantity").value = opt.getAttribute("data-qty") || "";
-            document.getElementById("display-charge").innerText = opt.getAttribute("data-charge") || "0";
+            
+            if (s.value !== "") {
+                document.getElementById("order-quantity").value = opt.getAttribute("data-qty") || "";
+                document.getElementById("display-charge").innerText = opt.getAttribute("data-charge") || "0";
+            } else {
+                document.getElementById("display-charge").innerText = "0";
+            }
         }
 
         function submitOrder(e) {
@@ -307,4 +309,3 @@
     </script>
 </body>
 </html>
-
