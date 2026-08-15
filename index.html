@@ -128,12 +128,12 @@
                 return;
             }
             orders.forEach(o => {
-              tableBody.innerHTML += `<tr class="hover:bg-slate-800/50">
-                <td class="py-3 px-3">${o.id || ''}</td>
+              tableBody.innerHTML += `<tr class="hover:bg-slate-800/50 border-b border-slate-800/50">
+                <td class="py-3 px-3">${o.orderId || o.id || ''}</td>
                 <td class="py-3 px-3">${o.service || ''}</td>
                 <td class="py-3 px-3 truncate max-w-xs">${o.link || ''}</td>
-                <td class="py-3 px-3">${o.qty || ''}</td>
-                <td class="py-3 px-3">${o.cost || ''}</td>
+                <td class="py-3 px-3">${o.quantity || o.qty || ''}</td>
+                <td class="py-3 px-3">$${o.charge || o.cost || '0.00'}</td>
                 <td class="py-3 px-3"><span class="px-2 py-1 bg-amber-500/10 text-amber-400 rounded text-xs">${o.status || 'Pending'}</span></td>
               </tr>`;
             });
@@ -151,7 +151,7 @@
       const link = document.getElementById("orderLink").value;
       const qty = document.getElementById("orderQty").value;
       const email = document.getElementById("orderEmail").value;
-      const cost = (qty * 0.01).toFixed(2); // আনুমানিক হিসাব
+      const cost = (qty * 0.01).toFixed(2);
 
       const orderData = { service, link, quantity: qty, email, charge: cost };
 
@@ -165,7 +165,7 @@
 
         alert("অর্ডার সফলভাবে সাবমিট হয়েছে!");
         document.getElementById("orderForm").reset();
-        setTimeout(loadOrders, 2000); // ২ সেকেন্ড পর লিস্ট আপডেট করবে
+        setTimeout(loadOrders, 2000);
       } catch (err) {
         console.error("Order submission error:", err);
         alert("অর্ডার সাবমিট করতে সমস্যা হয়েছে।");
