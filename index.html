@@ -9,33 +9,31 @@
 <body class="bg-gray-900 text-white p-4">
 
     <!-- Login / Sign Up Section -->
-    <div id="loginContainer" class="max-w-md mx-auto mt-16 bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div id="loginContainer" class="max-w-md mx-auto mt-10 bg-gray-800 p-6 rounded-xl shadow-2xl">
         <h2 id="authTitle" class="text-xl font-bold mb-4 text-center">Login to JH Media</h2>
         <form onsubmit="return false;">
-            <input type="text" id="nameInput" placeholder="Enter your name" class="w-full p-2.5 mb-3 bg-gray-700 rounded border border-gray-600 text-sm hidden">
-            <input type="email" id="emailInput" placeholder="Enter your email" autocomplete="email" class="w-full p-2.5 mb-3 bg-gray-700 rounded border border-gray-600 text-sm">
+            <input type="text" id="nameInput" placeholder="Enter your name" class="w-full p-3 mb-3 bg-gray-700 rounded border border-gray-600 hidden">
+            <input type="email" id="emailInput" placeholder="Enter your email" autocomplete="email" class="w-full p-3 mb-3 bg-gray-700 rounded border border-gray-600">
             <div class="relative mb-4">
-                <input type="password" id="passInput" placeholder="Enter your password" autocomplete="current-password" class="w-full p-2.5 bg-gray-700 rounded border border-gray-600 text-sm">
-                <button type="button" onclick="togglePassword()" class="absolute right-2 top-2.5 text-xs text-blue-400">Show</button>
+                <input type="password" id="passInput" placeholder="Password" autocomplete="current-password" class="w-full p-3 bg-gray-700 rounded border border-gray-600">
+                <button type="button" onclick="togglePassword()" class="absolute right-3 top-3.5 text-xs text-blue-400">Show</button>
             </div>
-            <button id="authBtn" onclick="handleAuth()" class="w-full bg-blue-600 hover:bg-blue-700 py-2.5 rounded font-bold text-sm">Login</button>
+            <button id="authBtn" onclick="handleAuth()" class="w-full bg-blue-600 py-3 rounded font-bold">Login</button>
         </form>
-        <p class="text-center text-xs text-gray-400 mt-3">
-            <span id="switchText">Don't have an account?</span> 
-            <button onclick="toggleAuthMode()" class="text-blue-400 underline ml-1 font-semibold" id="switchBtn">Sign Up</button>
-        </p>
     </div>
 
     <!-- Dashboard -->
-    <div id="dashboard" class="hidden">
+    <div id="dashboard" class="hidden max-w-md mx-auto">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-xl font-bold">JH Media Growth</h1>
-            <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-sm font-semibold transition">Logout</button>
+            <h1 class="text-xl font-bold">JH Media Dashboard</h1>
+            <button onclick="logout()" class="bg-red-600 px-3 py-1 rounded text-sm">Logout</button>
         </div>
 
-        <div class="bg-gray-800 p-6 rounded-lg mb-8 shadow-lg">
-            <h2 class="text-lg font-bold mb-4">Create New Order</h2>
-            <select id="service" class="w-full p-2.5 mb-4 bg-gray-700 rounded text-white border border-gray-600 focus:outline-none">
+        <div class="bg-gray-800 p-5 rounded-xl mb-6 shadow-lg">
+            <h2 class="font-bold mb-3">Create New Order</h2>
+            
+            <!-- সম্পূর্ণ সার্ভিস লিস্ট -->
+            <select id="service" class="w-full p-3 mb-3 bg-gray-700 rounded border border-gray-600">
                 <option value="">-- Choose Your Service --</option>
                 <optgroup label="YouTube Shorts Views">
                     <option value="YT Shorts 5K - 250tk">YouTube Shorts 5K - 250tk</option>
@@ -77,45 +75,66 @@
                     <option value="TT View 10K - 80tk">TikTok Views 10K - 80tk</option>
                 </optgroup>
             </select>
-            <input type="text" id="link" placeholder="Order Link" class="w-full p-2.5 mb-4 bg-gray-700 rounded border border-gray-600 text-sm">
-            <button onclick="submitOrder()" class="w-full bg-indigo-600 py-2.5 rounded font-bold text-sm">Confirm Order</button>
+
+            <input type="text" id="link" placeholder="Order Link" class="w-full p-3 mb-3 bg-gray-700 rounded border border-gray-600">
+            
+            <!-- পেমেন্ট মেথড -->
+            <select id="paymentMethod" class="w-full p-3 mb-3 bg-gray-700 rounded border border-gray-600">
+                <option value="Bkash">Bkash</option>
+                <option value="Nagad">Nagad</option>
+                <option value="Rocket">Rocket</option>
+            </select>
+
+            <input type="text" id="senderNumber" placeholder="Sender Number" class="w-full p-3 mb-3 bg-gray-700 rounded border border-gray-600">
+            <input type="text" id="trxId" placeholder="Transaction ID" class="w-full p-3 mb-4 bg-gray-700 rounded border border-gray-600">
+
+            <button onclick="submitOrder()" class="w-full bg-indigo-600 py-3 rounded font-bold">Confirm Order</button>
         </div>
 
-        <div id="adminContainer" class="mt-8 p-4 bg-gray-800 rounded-lg hidden shadow-lg">
-            <h2 class="text-lg font-bold text-white mb-3">Admin Panel</h2>
-            <p class="text-xs text-gray-400">Order management system is active.</p>
+        <!-- Admin Panel -->
+        <div id="adminContainer" class="hidden bg-gray-800 p-5 rounded-xl border border-yellow-600">
+            <h2 class="text-yellow-500 font-bold mb-2">Admin Control</h2>
+            <p class="text-sm text-gray-300">Order management system is active.</p>
         </div>
     </div>
 
     <script>
         const ADMIN_EMAIL = "jhmediagrowth@gmail.com";
+
         function togglePassword() {
-            const pass = document.getElementById('passInput');
+            const p = document.getElementById('passInput');
             const btn = event.target;
-            pass.type = (pass.type === "password") ? "text" : "password";
-            btn.innerText = (pass.type === "password") ? "Show" : "Hide";
+            if (p.type === 'password') {
+                p.type = 'text';
+                btn.innerText = 'Hide';
+            } else {
+                p.type = 'password';
+                btn.innerText = 'Show';
+            }
         }
-        function toggleAuthMode() {
-            const isSignup = document.getElementById('nameInput').classList.toggle('hidden');
-            document.getElementById('authTitle').innerText = isSignup ? "Login to JH Media" : "Sign Up for JH Media";
-            document.getElementById('authBtn').innerText = isSignup ? "Login" : "Sign Up";
-            document.getElementById('switchText').innerText = isSignup ? "Don't have an account?" : "Already have an account?";
-            document.getElementById('switchBtn').innerText = isSignup ? "Sign Up" : "Login";
-        }
+
         function handleAuth() {
             const email = document.getElementById('emailInput').value;
-            if(!email) return alert("Please enter email!");
+            if(!email) return alert("Please enter your email!");
             localStorage.setItem("userEmail", email);
             location.reload();
         }
-        function logout() { localStorage.clear(); location.reload(); }
-        function submitOrder() { alert("Order Submitted Successfully!"); }
+
+        function logout() { 
+            localStorage.clear(); 
+            location.reload(); 
+        }
+
+        function submitOrder() { 
+            alert("Order Submitted Successfully!"); 
+        }
+
         window.onload = () => {
             const email = localStorage.getItem("userEmail");
-            if (email) {
+            if(email) {
                 document.getElementById('loginContainer').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
-                if (email === ADMIN_EMAIL) {
+                if(email === ADMIN_EMAIL) {
                     document.getElementById('adminContainer').classList.remove('hidden');
                 }
             }
