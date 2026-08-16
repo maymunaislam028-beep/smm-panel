@@ -1,134 +1,208 @@
-savedEmail) showDashboard(savedEmail);
-        };
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JH Media Growth Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-4">
 
-        function togglePassword() {
-            const p = document.getElementById("password");
-            const btn = event.target;
-            if (p.type === "password") { 
-                p.type = "text"; 
-                btn.innerText = "Hide"; 
-            } else { 
-                p.type = "password"; 
-                btn.innerText = "Show"; 
-            }
-        }
+    <!-- Top Bar -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-xl font-bold">JH Media Growth</h1>
+        <button onclick="logout()" class="bg-red-600 px-3 py-1 rounded text-sm font-semibold">Logout</button>
+    </div>
 
-        function toggleAuthMode() {
-            isSignupMode = !isSignupMode;
-            document.getElementById("auth-title").innerText = isSignupMode ? "Sign Up" : "Login";
-            document.getElementById("auth-btn").innerText = isSignupMode ? "Sign Up" : "Login";
-            document.getElementById("name-field").classList.toggle("hidden", !isSignupMode);
-            document.getElementById("switch-text").innerHTML = isSignupMode ? 
-                'Already have an account? <button type="button" onclick="toggleAuthMode()" class="text-indigo-400 hover:underline font-medium">Login</button>' : 
-                'Don\'t have an account? <button type="button" onclick="toggleAuthMode()" class="text-indigo-400 hover:underline font-medium">Sign Up</button>';
-        }
-
-        function handleAuth(e) {
-            e.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const name = document.getElementById("name").value;
+    <!-- New Order Form -->
+    <div class="bg-gray-800 p-6 rounded-lg mb-8 shadow-lg">
+        <h2 class="text-lg font-bold mb-4">Create New Order</h2>
+        
+        <label class="block text-xs text-gray-400 mb-1">Select Service & Package</label>
+        <select id="service" class="w-full p-2.5 mb-4 bg-gray-700 rounded text-white border border-gray-600 focus:outline-none">
+            <option value="">-- Choose Your Service --</option>
             
+            <optgroup label="YouTube Shorts Views">
+                <option value="YT Shorts 5K - 250tk">YouTube Shorts 5K Views - 250 tk</option>
+                <option value="YT Shorts 10K - 500tk">YouTube Shorts 10K Views - 500 tk</option>
+                <option value="YT Shorts 1M - 1150tk">YouTube Shorts 1 Million Views - 1150 tk</option>
+            </optgroup>
+
+            <optgroup label="YouTube Long Video Views">
+                <option value="YT Long 1K - 350tk">YouTube Long Video 1K Views - 350 tk</option>
+                <option value="YT Long 10K - 750tk">YouTube Long Video 10K Views - 750 tk</option>
+                <option value="YT Long 50K - 1350tk">YouTube Long Video 50K Views - 1350 tk</option>
+                <option value="YT Long 1000K - 2500tk">YouTube Long Video 1000K Views - 2500 tk</option>
+            </optgroup>
+
+            <optgroup label="YouTube Subscribers">
+                <option value="YT Sub 1000 - 50tk">YouTube Subscribers 1000 - 50 tk</option>
+                <option value="YT Sub 5000 - 250tk">YouTube Subscribers 5000 - 250 tk</option>
+                <option value="YT Sub 10000 - 550tk">YouTube Subscribers 10000 - 550 tk</option>
+            </optgroup>
+
+            <optgroup label="Facebook Video Views">
+                <option value="FB Video 10K - 150tk">Facebook Video 10K Views - 150 tk</option>
+                <option value="FB Video 50K - 450tk">Facebook Video 50K Views - 450 tk</option>
+                <option value="FB Video 1M - 2450tk">Facebook Video 1 Million Views - 2450 tk</option>
+            </optgroup>
+
+            <optgroup label="Facebook Followers">
+                <option value="FB Follow 1000 - 25tk">Facebook Followers 1000 - 25 tk</option>
+                <option value="FB Follow 5000 - 250tk">Facebook Followers 5000 - 250 tk</option>
+                <option value="FB Follow 10000 - 550tk">Facebook Followers 10000 - 550 tk</option>
+            </optgroup>
+
+            <optgroup label="Instagram Followers & Views">
+                <option value="IG Follow 1000 - 30tk">Instagram Followers 1000 - 30 tk</option>
+                <option value="IG Follow 5000 - 140tk">Instagram Followers 5000 - 140 tk</option>
+                <option value="IG View 1000 - 25tk">Instagram Views 1000 - 25 tk</option>
+                <option value="IG View 10000 - 300tk">Instagram Views 10000 - 300 tk</option>
+            </optgroup>
+
+            <optgroup label="TikTok Followers & Views">
+                <option value="TT Follow 1000 - 20tk">TikTok Followers 1000 - 20 tk</option>
+                <option value="TT Follow 5000 - 100tk">TikTok Followers 5000 - 100 tk</option>
+                <option value="TT Follow 10000 - 200tk">TikTok Followers 10000 - 200 tk</option>
+                <option value="TT View 5K - 40tk">TikTok Views 5K - 40 tk</option>
+                <option value="TT View 10K - 80tk">TikTok Views 10K - 80 tk</option>
+            </optgroup>
+        </select>
+
+        <!-- Payment Method Selection -->
+        <label class="block text-xs text-gray-400 mb-1">Payment Method</label>
+        <div class="flex gap-4 mb-4 text-sm bg-gray-700 p-2.5 rounded border border-gray-600">
+            <label class="cursor-pointer"><input type="radio" name="payment" value="Bkash" checked class="mr-1"> Bkash</label>
+            <label class="cursor-pointer"><input type="radio" name="payment" value="Nagad" class="mr-1"> Nagad</label>
+            <label class="cursor-pointer"><input type="radio" name="payment" value="Rocket" class="mr-1"> Rocket</label>
+        </div>
+
+        <input type="text" id="senderNumber" placeholder="Sender Number (e.g. 017xxxxxxxx)" class="w-full p-2.5 mb-3 bg-gray-700 rounded border border-gray-600 focus:outline-none text-sm">
+        <input type="text" id="trxId" placeholder="Transaction ID (TrxID)" class="w-full p-2.5 mb-3 bg-gray-700 rounded border border-gray-600 focus:outline-none text-sm">
+        <input type="text" id="link" placeholder="Order Link (URL)" class="w-full p-2.5 mb-4 bg-gray-700 rounded border border-gray-600 focus:outline-none text-sm">
+
+        <!-- Password with Show/Hide -->
+        <div class="relative mb-4">
+            <input type="password" id="password" placeholder="Account Password" class="w-full p-2.5 bg-gray-700 rounded border border-gray-600 focus:outline-none text-sm">
+            <button type="button" onclick="togglePasswordVisibility()" class="text-xs mt-1 text-blue-400 underline focus:outline-none">Show/Hide Password</button>
+        </div>
+
+        <button onclick="submitOrder()" class="w-full bg-indigo-600 hover:bg-indigo-700 py-2.5 rounded font-bold text-sm transition">Confirm Order</button>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminContainer" class="mt-8 p-4 bg-gray-800 rounded-lg hidden shadow-lg border border-gray-700">
+        <h2 class="text-lg font-bold text-white mb-3">Admin Management Panel</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-gray-300 text-xs">
+                <thead>
+                    <tr class="border-b border-gray-600 text-gray-400">
+                        <th class="py-2">ID</th>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyX4P2z9bAe1lXfF8Ay-5-kaKgVSuy4twRCsuE1GWCaQlIpUNgSWRwrn-h81fv5yibmQ/exec";
+        const ADMIN_EMAIL = "jhmediagrowth@gmail.com"; 
+
+        function submitOrder() {
+            const service = document.getElementById("service").value;
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            const senderNumber = document.getElementById("senderNumber").value;
+            const trxId = document.getElementById("trxId").value;
+            const link = document.getElementById("link").value;
+            const userEmail = localStorage.getItem("userEmail");
+
+            if(!service || !senderNumber || !trxId || !link) {
+                alert("দয়া করে সব ফিল্ড পূরণ করুন!");
+                return;
+            }
+
+            const data = {
+                action: "addOrder",
+                service: service,
+                paymentMethod: paymentMethod,
+                senderNumber: senderNumber,
+                trxId: trxId,
+                link: link,
+                userEmail: userEmail
+            };
+
             fetch(SCRIPT_URL, { 
                 method: "POST", 
-                body: JSON.stringify({ action: isSignupMode ? "signup" : "login", email, password, name }) 
+                mode: "no-cors", 
+                body: JSON.stringify(data) 
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "success") {
-                    localStorage.setItem("jh_user_email", data.email);
-                    showDashboard(data.email);
-                } else { 
-                    document.getElementById("auth-message").innerText = data.message; 
-                }
+            .then(() => {
+                alert("Order submitted successfully!");
+                location.reload();
             })
             .catch(err => {
-                document.getElementById("auth-message").innerText = "Connection error. Please try again.";
+                console.error(err);
+                alert("Failed to submit order.");
             });
         }
 
-        function showDashboard(email) {
-            document.getElementById("auth-container").classList.add("hidden");
-            document.getElementById("dashboard").classList.remove("hidden");
-            document.getElementById("user-info-display").innerText = "Logged in as: " + email;
-            loadOrders(email);
+        function togglePasswordVisibility() {
+            const p = document.getElementById("password");
+            p.type = (p.type === "password") ? "text" : "password";
+        }
+
+        function checkAdmin() {
+            const userEmail = localStorage.getItem("userEmail");
+            if (userEmail === ADMIN_EMAIL) {
+                document.getElementById("adminContainer").classList.remove("hidden");
+                loadAdminOrders();
+            }
+        }
+
+        function loadAdminOrders() {
+            fetch(SCRIPT_URL + "?action=getAllOrders")
+            .then(res => res.json())
+            .then(data => {
+                let html = "";
+                data.forEach(order => {
+                    const statusColor = order.status === 'Completed' ? 'text-green-400 font-bold' : 'text-yellow-400 font-bold';
+                    html += `<tr class="border-b border-gray-700">
+                        <td class="py-2.5">${order.orderId}</td>
+                        <td class="py-2.5">${order.service}</td>
+                        <td class="py-2.5 ${statusColor}">${order.status}</td>
+                        <td class="py-2.5">
+                            ${order.status === 'Pending' ? `<button onclick="updateStatus('${order.orderId}', 'Completed')" class="bg-blue-600 hover:bg-blue-700 px-2 py-1 rounded text-white">Done</button>` : 'Completed'}
+                        </td>
+                    </tr>`;
+                });
+                document.getElementById("adminTableBody").innerHTML = html;
+            })
+            .catch(err => console.error("Error loading admin panel data:", err));
+        }
+
+        function updateStatus(orderId, newStatus) {
+            fetch(SCRIPT_URL, { 
+                method: "POST", 
+                mode: "no-cors", 
+                body: JSON.stringify({ action: "updateStatus", orderId: orderId, status: newStatus }) 
+            })
+            .then(() => { 
+                alert("Status updated!");
+                loadAdminOrders(); 
+            });
         }
 
         function logout() { 
-            localStorage.removeItem("jh_user_email"); 
-            location.reload(); 
+            localStorage.removeItem("userEmail"); 
+            window.location.reload(); 
         }
 
-        function updateServiceDetails() {
-            const s = document.getElementById("service-select");
-            const opt = s.options[s.selectedIndex];
-            
-            if (s.value !== "") {
-                document.getElementById("order-quantity").value = opt.getAttribute("data-qty") || "";
-                document.getElementById("display-charge").innerText = opt.getAttribute("data-charge") || "0";
-            } else {
-                document.getElementById("display-charge").innerText = "0";
-            }
-        }
-
-        function submitOrder(e) {
-            e.preventDefault();
-            const select = document.getElementById("service-select");
-            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
-            const senderNumber = document.getElementById("sender-number").value;
-            const trxId = document.getElementById("trx-id").value;
-            const email = localStorage.getItem("jh_user_email");
-
-            const data = { 
-                service: select.value,
-                link: document.getElementById("order-link").value,
-                quantity: document.getElementById("order-quantity").value,
-                charge: select.selectedOptions[0].getAttribute("data-charge") + " Tk",
-                payment: `${paymentMethod} (${senderNumber}) - Trx: ${trxId}`,
-                email: email
-            };
-            
-            fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) })
-            .then(res => res.json())
-            .then(response => { 
-                if(response.status === "success") { 
-                    alert("Order submitted successfully!"); 
-                    loadOrders(email); 
-                    document.getElementById("order-form").reset();
-                    document.getElementById("display-charge").innerText = "0";
-                } else {
-                    alert("Error: " + (response.message || "Failed to submit order"));
-                }
-            })
-            .catch(err => {
-                alert("Network error while submitting order.");
-            });
-        }
-
-        function loadOrders(email) {
-            fetch(`${SCRIPT_URL}?action=getOrders&email=${email}`)
-            .then(res => res.json())
-            .then(data => {
-                const tbody = document.getElementById("orders-table-body");
-                if (!Array.isArray(data) || data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="p-3 text-center text-slate-500">No orders found.</td></tr>`;
-                    return;
-                }
-                tbody.innerHTML = data.map(o => `
-                    <tr class="border-b border-slate-700">
-                        <td class="p-3">${o.orderId}</td>
-                        <td class="p-3">${o.service}</td>
-                        <td class="p-3">${o.charge}</td>
-                        <td class="p-3">${o.payment || 'N/A'}</td>
-                        <td class="p-3 text-amber-400 font-medium">${o.status}</td>
-                    </tr>`).join('');
-            })
-            .catch(err => {
-                console.error("Failed to load orders");
-            });
-        }
+        window.onload = checkAdmin;
     </script>
 </body>
 </html>
-
-            
