@@ -8,14 +8,23 @@
 </head>
 <body class="bg-gray-900 text-white p-4">
 
-    <!-- লগইন সেকশন -->
-    <div id="loginContainer" class="max-w-md mx-auto mt-20 bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-bold mb-4 text-center">Login to JH Media</h2>
-        <input type="email" id="emailInput" placeholder="Enter your email" class="w-full p-2.5 mb-4 bg-gray-700 rounded border border-gray-600 focus:outline-none text-sm">
-        <button onclick="login()" class="w-full bg-blue-600 hover:bg-blue-700 py-2.5 rounded font-bold transition">Login</button>
+    <!-- লগইন / সাইন আপ সেকশন -->
+    <div id="loginContainer" class="max-w-md mx-auto mt-16 bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 id="authTitle" class="text-xl font-bold mb-4 text-center">Login to JH Media</h2>
+        
+        <input type="text" id="nameInput" placeholder="Enter your name" class="w-full p-2.5 mb-3 bg-gray-700 rounded border border-gray-600 text-sm hidden">
+        <input type="email" id="emailInput" placeholder="Enter your email" class="w-full p-2.5 mb-3 bg-gray-700 rounded border border-gray-600 text-sm">
+        <input type="password" id="passInput" placeholder="Enter your password" class="w-full p-2.5 mb-4 bg-gray-700 rounded border border-gray-600 text-sm">
+        
+        <button id="authBtn" onclick="handleAuth()" class="w-full bg-blue-600 hover:bg-blue-700 py-2.5 rounded font-bold text-sm transition mb-3">Login</button>
+        
+        <p class="text-center text-xs text-gray-400">
+            <span id="switchText">Don't have an account?</span> 
+            <button onclick="toggleAuthMode()" class="text-blue-400 underline ml-1 focus:outline-none font-semibold" id="switchBtn">Sign Up</button>
+        </p>
     </div>
 
-    <!-- ড্যাশবোর্ড -->
+    <!-- ড্যাশবোর্ড (লগইন করার পর যা দেখাবে) -->
     <div id="dashboard" class="hidden">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-xl font-bold">JH Media Growth</h1>
@@ -81,6 +90,7 @@
             <button onclick="submitOrder()" class="w-full bg-indigo-600 py-2.5 rounded font-bold text-sm">Confirm Order</button>
         </div>
 
+        <!-- Admin Panel -->
         <div id="adminContainer" class="mt-8 p-4 bg-gray-800 rounded-lg hidden shadow-lg">
             <h2 class="text-lg font-bold text-white mb-3">Admin Panel</h2>
             <table class="w-full text-left text-gray-300 text-xs">
@@ -92,6 +102,7 @@
 
     <script>
         const ADMIN_EMAIL = "jhmediagrowth@gmail.com";
+        let isSignupMode = false;
 
         window.onload = () => {
             if (localStorage.getItem("userEmail")) {
@@ -103,12 +114,23 @@
             }
         };
 
-        function login() {
+        function toggleAuthMode() {
+            isSignupMode = !isSignupMode;
+            document.getElementById('authTitle').innerText = isSignupMode ? "Sign Up for JH Media" : "Login to JH Media";
+            document.getElementById('authBtn').innerText = isSignupMode ? "Sign Up" : "Login";
+            document.getElementById('nameInput').classList.toggle('hidden', !isSignupMode);
+            document.getElementById('switchText').innerText = isSignupMode ? "Already have an account?" : "Don't have an account?";
+            document.getElementById('switchBtn').innerText = isSignupMode ? "Login" : "Sign Up";
+        }
+
+        function handleAuth() {
             const email = document.getElementById('emailInput').value;
-            if(email) {
-                localStorage.setItem("userEmail", email);
-                location.reload();
+            if(!email) {
+                alert("Please enter your email!");
+                return;
             }
+            localStorage.setItem("userEmail", email);
+            location.reload();
         }
 
         function logout() {
@@ -118,8 +140,8 @@
 
         function submitOrder() {
             const service = document.getElementById("service").value;
-            if(!service) return alert("Select Service first!");
-            alert("Order Submitted!");
+            if(!service) return alert("Select a service first!");
+            alert("Order Submitted Successfully!");
             location.reload();
         }
     </script>
