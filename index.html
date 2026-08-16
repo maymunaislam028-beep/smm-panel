@@ -12,14 +12,23 @@
     <div id="loginContainer" class="max-w-md mx-auto mt-10 bg-gray-800 p-6 rounded-xl shadow-2xl">
         <h2 id="authTitle" class="text-xl font-bold mb-4 text-center">Login to JH Media</h2>
         <form onsubmit="return false;">
+            <!-- নাম ইনপুট ফিল্ড (সাইন আপ মোডে দেখাবে) -->
             <input type="text" id="nameInput" placeholder="Enter your name" class="w-full p-3 mb-3 bg-gray-700 rounded border border-gray-600 hidden">
+            
             <input type="email" id="emailInput" placeholder="Enter your email" autocomplete="email" class="w-full p-3 mb-3 bg-gray-700 rounded border border-gray-600">
+            
             <div class="relative mb-4">
                 <input type="password" id="passInput" placeholder="Password" autocomplete="current-password" class="w-full p-3 bg-gray-700 rounded border border-gray-600">
                 <button type="button" onclick="togglePassword()" class="absolute right-3 top-3.5 text-xs text-blue-400">Show</button>
             </div>
+            
             <button id="authBtn" onclick="handleAuth()" class="w-full bg-blue-600 py-3 rounded font-bold">Login</button>
         </form>
+
+        <p class="text-center text-xs text-gray-400 mt-3">
+            <span id="switchText">Don't have an account?</span> 
+            <button onclick="toggleAuthMode()" class="text-blue-400 underline ml-1 font-semibold" id="switchBtn">Sign Up</button>
+        </p>
     </div>
 
     <!-- Dashboard -->
@@ -111,6 +120,17 @@
                 p.type = 'password';
                 btn.innerText = 'Show';
             }
+        }
+
+        // লগইন এবং সাইন আপ মোড পাল্টানোর ফাংশন
+        function toggleAuthMode() {
+            const nameInput = document.getElementById('nameInput');
+            const isHidden = nameInput.classList.toggle('hidden');
+            
+            document.getElementById('authTitle').innerText = isHidden ? "Login to JH Media" : "Sign Up for JH Media";
+            document.getElementById('authBtn').innerText = isHidden ? "Login" : "Sign Up";
+            document.getElementById('switchText').innerText = isHidden ? "Don't have an account?" : "Already have an account?";
+            document.getElementById('switchBtn').innerText = isHidden ? "Sign Up" : "Login";
         }
 
         function handleAuth() {
