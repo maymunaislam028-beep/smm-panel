@@ -13,7 +13,8 @@
         <h2 id="authTitle" class="text-xl font-bold mb-4 text-center">Login to JH Media</h2>
         
         <input type="text" id="nameInput" placeholder="Enter your name" class="w-full p-2.5 mb-3 bg-gray-700 rounded border border-gray-600 text-sm hidden">
-        <input type="email" id="emailInput" placeholder="Enter your email" class="w-full p-2.5 mb-3 bg-gray-700 rounded border border-gray-600 text-sm">
+        <!-- এখানে type="email" দেওয়া হয়েছে যাতে ব্রাউজার থেকে জিমেইল সাজেস্ট করে -->
+        <input type="email" id="emailInput" placeholder="Enter your email" autocomplete="email" class="w-full p-2.5 mb-3 bg-gray-700 rounded border border-gray-600 text-sm">
         <input type="password" id="passInput" placeholder="Enter your password" class="w-full p-2.5 mb-4 bg-gray-700 rounded border border-gray-600 text-sm">
         
         <button id="authBtn" onclick="handleAuth()" class="w-full bg-blue-600 hover:bg-blue-700 py-2.5 rounded font-bold text-sm transition mb-3">Login</button>
@@ -24,7 +25,7 @@
         </p>
     </div>
 
-    <!-- ড্যাশবোর্ড (লগইন করার পর যা দেখাবে) -->
+    <!-- ড্যাশবোর্ড -->
     <div id="dashboard" class="hidden">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-xl font-bold">JH Media Growth</h1>
