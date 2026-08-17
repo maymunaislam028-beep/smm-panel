@@ -109,7 +109,7 @@
         <!-- Admin Panel -->
         <div id="adminContainer" class="hidden bg-gray-800 p-5 rounded-xl border border-yellow-600 mb-6">
             <h2 class="text-yellow-500 font-bold mb-2">Admin Control</h2>
-            <p class="text-sm text-gray-300">Order management system is active for admin.</p>
+            <p class="text-sm text-gray-300">Order management system is active.</p>
         </div>
     </div>
 
@@ -169,7 +169,7 @@
                 paymentMethod,
                 senderNumber,
                 trxId,
-                status: "Pending" // প্রফেশনাল নিয়ম অনুযায়ী ডিফল্ট স্ট্যাটাস Pending থাকবে
+                status: "Pending" // ডিফল্ট স্ট্যাটাস Pending থাকবে
             };
 
             orders.push(newOrder);
@@ -180,6 +180,13 @@
             document.getElementById('senderNumber').value = '';
             document.getElementById('trxId').value = '';
             loadUserOrders();
+        }
+
+        function getStatusColor(status) {
+            if (status === 'Pending') return 'bg-orange-600';
+            if (status === 'Processing') return 'bg-blue-600';
+            if (status === 'Completed') return 'bg-green-600';
+            return 'bg-gray-650';
         }
 
         function loadUserOrders() {
@@ -196,8 +203,8 @@
                     <p class="font-semibold text-indigo-300">${o.service}</p>
                     <p class="text-xs text-gray-300 truncate">Link: ${o.link}</p>
                     <div class="flex justify-between mt-2 text-xs items-center">
-                        <span class="text-gray-400">Paid via: ${o.paymentMethod}</span>
-                        <span class="bg-yellow-600 px-2 py-1 rounded text-white font-medium">${o.status}</span>
+                        <span class="text-gray-400">Paid (${o.paymentMethod}): ${o.senderNumber}</span>
+                        <span class="${getStatusColor(o.status)} px-2 py-0.5 rounded text-white font-bold">${o.status}</span>
                     </div>
                 </div>
             `).join('');
